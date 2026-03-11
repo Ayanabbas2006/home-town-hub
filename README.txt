@@ -39,7 +39,8 @@ It unites the people from same area or community. It is the solution for the Com
 ## 📁 Project Structure (update further)
 Hometown_hub/
 ├── backend/
-│   ├── 
+│   ├── main.py
+│   ├──
 ├── frontend/
 │   ├── 
 ├── .gitignore
