@@ -1,7 +1,12 @@
 node_modules/
 venv/
+
 package-lock.json
 package.json
+
 backend/test.py
 backend/test1.py
+
 frontend/test_login.html
+frontend/test.html
+frontend/test1.html
