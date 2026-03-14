@@ -17,7 +17,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: top;
     }
 
     body::before {
@@ -147,6 +147,9 @@
     .forgot:hover { color: #a29bfe; }
 
     /* ── BUTTON ── */
+    .btn{
+      padding: 10px;
+    }
     .btn-main {
       width: 100%; padding: 16px; border: none; border-radius: 13px;
       background: linear-gradient(90deg, #5b3ff8, #7b2ff7);
@@ -281,7 +284,7 @@
 
         <a href="#" class="forgot">Forgot password?</a>
         <button class="btn-main">Log In</button>
-        <p class="switch">Don't have an account? <button id="toRegister">Register</button></p>
+        <p class="switch btn">Don't have an account? <button id="toRegister">Register</button></p>
       </div>
 
       <!-- BACK: Register -->
@@ -360,7 +363,7 @@
           </span>
         </div>
 
-        <button class="btn-main" style="margin-top:4px">Register</button>
+        <button class="btn-main btn" style="margin-top:4px">Register</button>
         <p class="switch">Already have an account? <button id="toLogin">Log In</button></p>
       </div>
 
