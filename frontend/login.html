@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hometown Hub – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #07071a;
+      --card-bg:   #0d0d2b;
+      --border:    rgba(90, 80, 220, 0.45);
+      --border-focus: rgba(130, 100, 255, 0.9);
+      --purple:    #6c5ce7;
+      --purple-light: #a29bfe;
+      --btn-start: #5b3ff8;
+      --btn-end:   #7b2ff7;
+      --text:      #ffffff;
+      --muted:     #7a7aaa;
+      --icon:      #6c5ce7;
+      --glow:      rgba(108, 92, 231, 0.55);
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* Ambient background blobs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    body::before {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #7b2ff7, transparent 70%);
+      top: -80px; left: -80px;
+    }
+    body::after {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, #6c5ce7, transparent 70%);
+      bottom: -60px; right: -60px;
+    }
+
+    .card {
+      width: min(440px, 92vw);
+      padding: 52px 40px 44px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(90, 80, 200, 0.2);
+      box-shadow: 0 0 60px rgba(108, 92, 231, 0.1);
+      animation: fadeUp .55s cubic-bezier(.22,.68,0,1.2) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .logo-icon {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 2px;
+    }
+    .logo-icon svg { width: 100%; height: 100%; }
+
+    .brand-name {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    /* Input groups */
+    .input-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0;
+      position: absolute;
+      top: 14px;
+      left: 52px;
+      pointer-events: none;
+      transition: .2s;
+    }
+
+    .input-group .icon-left {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--icon);
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group .icon-right {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: color .2s;
+    }
+    .input-group .icon-right:hover { color: var(--purple-light); }
+
+    .input-group input {
+      width: 100%;
+      padding: 28px 48px 12px 52px;
+      background: rgba(255,255,255,0.03);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+      appearance: none;
+    }
+
+    .input-group input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.18), inset 0 0 20px rgba(108,92,231,0.04);
+      color: #fff;
+    }
+
+    .input-group input::placeholder { color: var(--muted); font-weight: 300; }
+
+    /* Forgot password */
+    .forgot {
+      display: block;
+      text-align: right;
+      margin-top: 6px;
+      margin-bottom: 28px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .forgot:hover { color: var(--purple-light); }
+
+    /* Login button */
+    .btn-login {
+      width: 100%;
+      padding: 17px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, var(--btn-start), var(--btn-end));
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform .15s, box-shadow .25s;
+      box-shadow: 0 4px 30px rgba(108, 92, 231, 0.45);
+    }
+
+    .btn-login::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 10%; right: 10%;
+      height: 6px;
+      background: radial-gradient(ellipse at center, rgba(200,170,255,0.7), transparent 70%);
+      border-radius: 50%;
+      filter: blur(4px);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 36px rgba(108,92,231,0.6);
+    }
+    .btn-login:active { transform: translateY(0); }
+
+    /* Register */
+    .register-line {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .register-line a {
+      color: var(--purple-light);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 4px;
+      transition: color .2s;
+    }
+    .register-line a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- gradient circle -->
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00e5c8"/>
+              <stop offset="100%" stop-color="#7b2ff7"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="20" r="14" fill="url(#lg)"/>
+          <circle cx="32" cy="20" r="6" fill="#07071a"/>
+          <!-- house -->
+          <path d="M10 38 L32 20 L54 38 H44 V54 H20 V38 Z" fill="white"/>
+          <rect x="26" y="42" width="12" height="12" rx="1" fill="#07071a"/>
+        </svg>
+      </div>
+      <div class="brand-name">Hometown Hub</div>
+    </div>
+
+    <p class="page-title">Login</p>
+
+    <!-- Email -->
+    <div class="input-group">
+      <span class="icon-left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
+        </svg>
+      </span>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="Enter your email" autocomplete="email"/>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+      <span class="icon-left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </span>
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password"/>
+      <span class="icon-right" id="togglePwd" title="Toggle visibility">
+        <svg id="eyeOff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+        <svg id="eyeOn" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </span>
+    </div>
+
+    <a href="#" class="forgot">Forgot password?</a>
+
+    <button class="btn-login" type="button">Log In</button>
+
+    <p class="register-line">
+      Don't have an account?<a href="#">Register</a>
+    </p>
+  </div>
+
+  <script>
+    const pwd = document.getElementById('password');
+    const toggle = document.getElementById('togglePwd');
+    const eyeOff = document.getElementById('eyeOff');
+    const eyeOn  = document.getElementById('eyeOn');
+
+    toggle.addEventListener('click', () => {
+      const show = pwd.type === 'password';
+      pwd.type = show ? 'text' : 'password';
+      eyeOff.style.display = show ? 'none' : '';
+      eyeOn.style.display  = show ? '' : 'none';
+    });
+  </script>
+</body>
+</html>
