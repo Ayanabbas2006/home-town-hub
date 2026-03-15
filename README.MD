@@ -39,7 +39,18 @@ It unites the people from same area or community. It is the solution for the Com
 ## 📁 Project Structure (update further)
 Hometown_hub/
 ├── backend/
-│   └── main.py
+│   ├── database/
+│   │   └── database.py
+│   ├── model/
+│   │   └── user.py
+│   ├── schemas/
+│   │   └── schemas.py
+│   ├── Security/
+│   │   └── auth.py
+│   ├── cloudinary.py
+│   ├── crud.py
+│   ├── main.py
+│   └── requirements.txt
 │   
 ├── frontend/
 │   ├── assets/
