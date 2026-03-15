@@ -1,15 +1,16 @@
 from sqlalchemy.orm import Session
-import models, schemas
+from models.user import User
+from schemas.schemas import UserCreate
 import Security.auth
 
 def get_user_by_email(db:Session, email: str):
-    return db.query(models.user.User).filter(models.user.User.email == email).first()
+    return db.query(User).filter(User.email == email).first()
 
 def get_user_by_id(db: Session,user_id: int):
-    return db.query(models.User.user).filter(models.user.User.id == user_id).first()
+    return db.query(User.user).filter(User.id == user_id).first()
 
-def create_user(db: Session, user: schemas.schemas.UserCreate):
-    new_user = models.user.User(
+def create_user(db: Session, user: UserCreate):
+    new_user = User(
         full_name = user.full_name,
         email = user.email,
         hashed_password = Security.auth.hashed_password(user.password)
