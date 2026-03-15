@@ -40,14 +40,19 @@ It unites the people from same area or community. It is the solution for the Com
 Hometown_hub/
 ├── backend/
 │   ├── database/
-│   │   └── database.py
+│   │   │── database.py
+│   │   └── init.py
+│   ├── routers
 │   ├── model/
+│   │   │── init.py
 │   │   └── user.py
 │   ├── schemas/
+│   │   │── init.py
 │   │   └── schemas.py
 │   ├── Security/
-│   │   └── auth.py
-│   ├── cloudinary.py
+│   │   │── auth.py
+│   │   └── init.py
+│   ├── upload.py
 │   ├── crud.py
 │   ├── main.py
 │   └── requirements.txt
