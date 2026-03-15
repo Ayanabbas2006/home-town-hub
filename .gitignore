@@ -10,3 +10,5 @@ backend/test1.py
 frontend/test_login.html
 frontend/test.html
 frontend/test1.html
+backend/*.env
+backend/.env
