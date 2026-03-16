@@ -30,7 +30,7 @@ It unites the people from same area or community. It is the solution for the Com
 
 ## 🛠 Tech Stack
 - Backend  : FastAPI + Jinja2
-- Database : MySQL
+- Database : PostgreSQL
 - Frontend : HTML + Plain CSS + JS (Jinja2 templates)
 - Auth     : JWT + bcrypt
 
@@ -100,10 +100,10 @@ Hometown_hub/
 ---
 
 ## 📅 Week-wise Progress
-- Week 1 — Database & Auth 🔲
-- Week 2 — Communities 🔲
-- Week 3 — Posts & Events 🔲
-- Week 4 — Frontend & Deploy 🔲
+- Week 1 — Frontend & Deploy 🔲
+- Week 2 — Database & Auth 🔲
+- Week 3 — Communities 🔲
+- Week 4 — Posts & Events 🔲
 
 ---
 

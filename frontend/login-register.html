@@ -669,7 +669,18 @@
         }
       }
     }
-
+    /* ═══════════════════════════════════════
+      Direct register page
+    ═══════════════════════════════════════ */
+    window.addEventListener('load',()=>{
+      const side = localStorage.getItem("showSide");
+      if (side=='register'){
+        card.classList.add("flipped");
+      } else{
+        card.classList.remove("flipped");
+      }
+      localStorage.removeItem("showSide");
+    });
     /* ═══════════════════════════════════════
       BACK TO REGISTER
     ═══════════════════════════════════════ */
