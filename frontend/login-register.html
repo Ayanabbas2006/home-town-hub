@@ -621,21 +621,34 @@
     });
 
     /* ═══════════════════════════════════════
-      AVATAR PREVIEW
+    AVATAR PREVIEW
     ═══════════════════════════════════════ */
-    document.getElementById('avatarInput').addEventListener('change', function () {
+    async function get_image(file, formData){
+      try{
+        const CLOUD_NAME = 'daiwsn1ot';
+        const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+        const response = await fetch(url,{method:'POST', body:formData});
+        const data = await response.json();
+        return data.secure_url;
+      } catch (e){
+        alert(e);
+      }
+    }
+    document.getElementById('avatarInput').addEventListener('change', async function () {
       const file = this.files[0];
+      const formData = new FormData();
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => {
+      formData.append('file',file);
+      formData.append('upload_preset',"hometownhub_preset");
+      const imageURL = await get_image(file,formData);
+      if(imageURL){
         const preview = document.getElementById('avatarPreview');
-        preview.src = e.target.result;
-        preview.style.display = 'block';
+        preview.src = imageURL;
+        preview.style.display='block';
         document.getElementById('avatarBox').querySelector('svg').style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-    });
-
+      }
+      window.uploadedPhotoUrl = imageURL;
+      });
     /* ═══════════════════════════════════════
       PANEL SWITCHER (register ↔ OTP)
     ═══════════════════════════════════════ */
