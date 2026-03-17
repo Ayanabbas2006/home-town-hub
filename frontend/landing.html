@@ -154,20 +154,10 @@
       <img src="assets/bg.png"/>
     </div>
     <div class="btn-wrap">
-      <button class="btn btn-primary" id="join-btn">Join Community</button>
-      <button class="btn btn-secondary" id="login-btn">Log In</button>
+      <a href="register-login.html"><button class="btn btn-primary" id="join-btn">Join Community</button></a>
+      <a href="login-register.html"><button class="btn btn-secondary" id="login-btn">Log In</button></a>
     </div>
     <p class="footer-text">Discover people from your hometown</p>
   </div>
-  <script>
-    document.getElementById('join-btn').addEventListener('click',()=>{
-      localStorage.setItem("showSide",'register');
-      window.location.href='login-register.html';
-    });
-    document.getElementById("login-btn").addEventListener('click',()=>{
-      localStorage.setItem("showSide",'login');
-      window.location.href='login-register.html';
-    });
-  </script>
 </body>
 </html>
