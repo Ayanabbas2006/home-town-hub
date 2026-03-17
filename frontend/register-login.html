@@ -198,61 +198,16 @@
     }
     .switch button:hover { color: #fff; }
 
-    /* ── AVATAR  LOADER ──*/
-    .spinner-border {
-        display: none;
-        width: 2rem;
-        height: 2rem;
-        border: 4px solid #3232327b;
-        border-top: 4px solid #a29bfe;
-        border-radius: 50%;
-        animation: spinner-border 0.75s linear infinite;
-        }
-        @keyframes spinner-border {
-            to { transform: rotate(360deg); }
-        }   
-    /* ── AVATAR ── */
-    .avatar-row {
+    /* ── NAME ── */
+    .name-row {
       width: 100%;
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 13px;
     }
-    .avatar-row .name-field { flex: 1; margin-bottom: 0; }
-    .avatar-wrap {
-      position: relative;
-      width: 82px; height: 82px;
-      flex-shrink: 0; cursor: pointer;
-    }
-    .avatar-box {
-      width: 82px; height: 82px;
-      border-radius: 14px;
-      border: 1.5px solid rgba(140,80,255,0.6);
-      background: rgba(90,50,180,0.15);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      box-shadow: 0 0 18px rgba(108,92,231,0.2);
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .avatar-box:hover {
-      border-color: rgba(180,120,255,0.9);
-      box-shadow: 0 0 26px rgba(108,92,231,0.45);
-    }
-    .avatar-box img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: none; border-radius: 12px;
-    }
-    .avatar-plus {
-      position: absolute; top: -7px; right: -7px;
-      width: 20px; height: 20px; border-radius: 6px;
-      background: #1a1050;
-      border: 1.5px solid rgba(140,80,255,0.7);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; color: #a29bfe; line-height: 1;
-    }
-    #avatarInput { display: none; }
-
+    .name-row .name-field { flex: 1; margin-bottom: 0; }
+    
     /* ── SLIDE ANIMATIONS ── */
     @keyframes slideOutLeft {
       from { transform: translateX(0);      opacity: 1; }
@@ -356,7 +311,7 @@
   <div class="scene">
     <div class="card" id="card">
 
-      <!-- ░░ BACK — LOGIN ░░ -->
+      <!-- ░░ FRONT — LOGIN ░░ -->
       <div class="face back">
 
         <p class="page-label">Login</p>
@@ -406,7 +361,7 @@
 
       </div><!-- end .face.front -->
 
-      <!-- ░░ FRONT — REGISTER + OTP ░░ -->
+      <!-- ░░ BACK — REGISTER + OTP ░░ -->
       <div class="face front">
 
         <!-- PANEL 1: Register -->
@@ -414,7 +369,7 @@
 
           <p class="page-label">Register</p>
 
-          <!-- avatar + name row -->
+          <!-- name row -->
             <div class="field name-field">
               <span class="fi">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -555,10 +510,14 @@
     ═══════════════════════════════════════ */
     const card = document.getElementById('card');
 
-    document.getElementById('toRegister').addEventListener('click', () => {
+    document.getElementById('toLogin').addEventListener('click', () => {
+      // Clear all errors before flipping
+      [...document.querySelectorAll('input')].forEach(inp => inp.classList.remove('error'));
       card.classList.add('flipped');
     });
-    document.getElementById('toLogin').addEventListener('click', () => {
+    document.getElementById('toRegister').addEventListener('click', () => {
+      // Clear all errors before flipping
+      [...document.querySelectorAll('input')].forEach(inp => inp.classList.remove('error'));
       card.classList.remove('flipped');
       showPanel('reg'); // reset back to register panel if on OTP
     });
