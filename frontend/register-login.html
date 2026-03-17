@@ -7,790 +7,737 @@
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-	*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-	body {
-	  min-height: 100vh;
-	  background: #07071a;
-	  font-family: 'Outfit', sans-serif;
-	  color: #fff;
-	  overflow: hidden;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: center;
-	}
+    body {
+      min-height: 100vh;
+      background: #07071a;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-	/* blobs */
-	body::before {
-	  content: ''; position: fixed;
-	  width: 460px; height: 460px; border-radius: 50%;
-	  background: radial-gradient(circle, #7b2ff7, transparent 70%);
-	  filter: blur(110px); opacity: .16;
-	  top: -100px; left: -100px; pointer-events: none;
-	}
-	body::after {
-	  content: ''; position: fixed;
-	  width: 340px; height: 340px; border-radius: 50%;
-	  background: radial-gradient(circle, #6c5ce7, transparent 70%);
-	  filter: blur(110px); opacity: .16;
-	  bottom: -80px; right: -80px; pointer-events: none;
-	}
+    /* blobs */
+    body::before {
+      content: ''; position: fixed;
+      width: 460px; height: 460px; border-radius: 50%;
+      background: radial-gradient(circle, #7b2ff7, transparent 70%);
+      filter: blur(110px); opacity: .16;
+      top: -100px; left: -100px; pointer-events: none;
+    }
+    body::after {
+      content: ''; position: fixed;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, #6c5ce7, transparent 70%);
+      filter: blur(110px); opacity: .16;
+      bottom: -80px; right: -80px; pointer-events: none;
+    }
 
-	/* ── LOGO ── */
-	.logo-header {
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  gap: 6px;
-	  margin-bottom: 24px;
-	  animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;
-	  z-index: 1;
-	}
-	.logo-header svg { width: 68px; height: 68px; }
-	.logo-name { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; }
+    /* ── LOGO ── */
+    .logo-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 24px;
+      animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;
+      z-index: 1;
+    }
+    .logo-header svg { width: 68px; height: 68px; }
+    .logo-name { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; }
 
-	/* ── FLIP SCENE ── */
-	.scene {
-	  perspective: 1200px;
-	  width: min(440px, 92vw);
-	  height: 500px;
-	  animation: fadeUp .55s cubic-bezier(.22,.68,0,1.2) .08s both;
-	}
-	@keyframes fadeUp {
-	  from { opacity: 0; transform: translateY(24px); }
-	  to   { opacity: 1; transform: translateY(0); }
-	}
+    /* ── FLIP SCENE ── */
+    .scene {
+      perspective: 1200px;
+      width: min(440px, 92vw);
+      height: 500px;
+      animation: fadeUp .55s cubic-bezier(.22,.68,0,1.2) .08s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-	.card {
-	  position: relative;
-	  width: 100%; height: 100%;
-	  transform-style: preserve-3d;
-	  transition: transform 0.75s cubic-bezier(.4,0,.2,1);
-	}
-	.card.flipped { transform: rotateY(180deg); }
+    .card {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(.4,0,.2,1);
+    }
+    .card.flipped { transform: rotateY(180deg); }
 
-	/* ── FACES ── */
-	.face {
-	  position: absolute;
-	  inset: 0;
-	  backface-visibility: hidden;
-	  -webkit-backface-visibility: hidden;
-	  border-radius: 24px;
-	  background: #0b0b28;
-	  border: 1px solid rgba(108,80,220,0.22);
-	  box-shadow: 0 0 70px rgba(108,92,231,0.1);
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: center;
-	  padding: 36px 36px 32px;
-	  overflow: hidden;
-	}
-	.face.back { transform: rotateY(180deg); }
+    /* ── FACES ── */
+    .face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 24px;
+      background: #0b0b28;
+      border: 1px solid rgba(108,80,220,0.22);
+      box-shadow: 0 0 70px rgba(108,92,231,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 36px 32px;
+      overflow: hidden;
+    }
+    .face.back { transform: rotateY(180deg); }
 
-	/* ── PAGE LABEL ── */
-	.page-label {
-	  font-size: 1.05rem; font-weight: 400; color: #9a9ac0;
-	  margin-bottom: 22px; align-self: flex-start;
-	}
+    /* ── PAGE LABEL ── */
+    .page-label {
+      font-size: 1.05rem; font-weight: 400; color: #9a9ac0;
+      margin-bottom: 22px; align-self: flex-start;
+    }
 
-	/* ── FIELD WRAPPER ── */
-	.field {
-	  position: relative;
-	  width: 100%;
-	  margin-bottom: 13px;
-	}
-	.field label {
-	  position: absolute;
-	  top: 12px; left: 50px;
-	  font-size: 0.76rem; font-weight: 600; color: #fff;
-	  pointer-events: none;
-	}
-	.field .fi {
-	  position: absolute; left: 15px; top: 50%;
-	  transform: translateY(-50%);
-	  color: #6c5ce7; display: flex; align-items: center;
-	}
-	.field .fr {
-	  position: absolute; right: 15px; top: 50%;
-	  transform: translateY(-50%);
-	  color: #7a7aaa; cursor: pointer;
-	  display: flex; align-items: center;
-	  transition: color .2s;
-	}
-	.field .fr:hover { color: #a29bfe; }
+    /* ── FIELD WRAPPER ── */
+    .field {
+      position: relative;
+      width: 100%;
+      margin-bottom: 13px;
+    }
+    .field label {
+      position: absolute;
+      top: 12px; left: 50px;
+      font-size: 0.76rem; font-weight: 600; color: #fff;
+      pointer-events: none;
+    }
+    .field .fi {
+      position: absolute; left: 15px; top: 50%;
+      transform: translateY(-50%);
+      color: #6c5ce7; display: flex; align-items: center;
+    }
+    .field .fr {
+      position: absolute; right: 15px; top: 50%;
+      transform: translateY(-50%);
+      color: #7a7aaa; cursor: pointer;
+      display: flex; align-items: center;
+      transition: color .2s;
+    }
+    .field .fr:hover { color: #a29bfe; }
 
-	/* ── INPUT ── */
-	.field input {
-	  width: 100%;
-	  padding: 25px 46px 10px 50px;
-	  background: rgba(255,255,255,0.025);
-	  border: 1.5px solid rgba(90,70,220,0.45);
-	  border-radius: 13px;
-	  color: #8888b0;
-	  font-family: 'Outfit', sans-serif;
-	  font-size: 0.93rem; font-weight: 300;
-	  outline: none;
-	  transition: border-color .25s, box-shadow .25s, color .2s;
-	}
-	.field input:focus {
-	  border-color: rgba(140,100,255,0.9);
-	  box-shadow: 0 0 0 3px rgba(108,92,231,0.18);
-	  color: #fff;
-	}
-	.field input::placeholder { color: #6a6a90; font-weight: 300; }
+    /* ── INPUT ── */
+    .field input {
+      width: 100%;
+      padding: 25px 46px 10px 50px;
+      background: rgba(255,255,255,0.025);
+      border: 1.5px solid rgba(90,70,220,0.45);
+      border-radius: 13px;
+      color: #8888b0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.93rem; font-weight: 300;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s, color .2s;
+    }
+    .field input:focus {
+      border-color: rgba(140,100,255,0.9);
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.18);
+      color: #fff;
+    }
+    .field input::placeholder { color: #6a6a90; font-weight: 300; }
 
-	/* ── ERROR STATE ── */
-	.field input.error {
-	  border-color: rgba(255,80,80,0.8) !important;
-	  box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important;
-	}
-	/* tiny error message below field */
-	.field .err-msg {
-	  display: none;
-	  font-size: 0.72rem;
-	  color: rgba(255,100,100,0.9);
-	  margin-top: 5px;
-	  padding-left: 4px;
-	}
-	.field input.error ~ .err-msg { display: block; }
+    /* ── ERROR STATE ── */
+    .field input.error {
+      border-color: rgba(255,80,80,0.8) !important;
+      box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important;
+    }
+    /* tiny error message below field */
+    .field .err-msg {
+      display: none;
+      font-size: 0.72rem;
+      color: rgba(255,100,100,0.9);
+      margin-top: 5px;
+      padding-left: 4px;
+    }
+    .field input.error ~ .err-msg { display: block; }
 
-	/* ── FORGOT ── */
-	.forgot {
-	  width: 100%; text-align: right;
-	  font-size: 0.82rem; color: #7a7aaa;
-	  text-decoration: none; margin-bottom: 18px;
-	  transition: color .2s; display: block;
-	}
-	.forgot:hover { color: #a29bfe; }
+    /* ── FORGOT ── */
+    .forgot {
+      width: 100%; text-align: right;
+      font-size: 0.82rem; color: #7a7aaa;
+      text-decoration: none; margin-bottom: 18px;
+      transition: color .2s; display: block;
+    }
+    .forgot:hover { color: #a29bfe; }
 
-	/* ── PRIMARY BUTTON ── */
-	.btn-main {
-	  width: 100%; padding: 16px; border: none; border-radius: 13px;
-	  background: linear-gradient(90deg, #5b3ff8, #7b2ff7);
-	  color: #fff; font-family: 'Outfit', sans-serif;
-	  font-size: 1.05rem; font-weight: 700;
-	  cursor: pointer; position: relative; overflow: hidden;
-	  box-shadow: 0 4px 28px rgba(108,92,231,0.5);
-	  transition: transform .15s, box-shadow .25s;
-	  letter-spacing: .3px;
-	}
-	.btn-main::after {
-	  content: ''; position: absolute;
-	  bottom: 0; left: 10%; right: 10%; height: 5px;
-	  background: radial-gradient(ellipse at center, rgba(200,170,255,0.6), transparent 70%);
-	  filter: blur(3px);
-	}
-	.btn-main:hover  { transform: translateY(-1px); box-shadow: 0 8px 34px rgba(108,92,231,0.65); }
-	.btn-main:active { transform: translateY(0); }
+    /* ── PRIMARY BUTTON ── */
+    .btn-main {
+      width: 100%; padding: 16px; border: none; border-radius: 13px;
+      background: linear-gradient(90deg, #5b3ff8, #7b2ff7);
+      color: #fff; font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; position: relative; overflow: hidden;
+      box-shadow: 0 4px 28px rgba(108,92,231,0.5);
+      transition: transform .15s, box-shadow .25s;
+      letter-spacing: .3px;
+    }
+    .btn-main::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 10%; right: 10%; height: 5px;
+      background: radial-gradient(ellipse at center, rgba(200,170,255,0.6), transparent 70%);
+      filter: blur(3px);
+    }
+    .btn-main:hover  { transform: translateY(-1px); box-shadow: 0 8px 34px rgba(108,92,231,0.65); }
+    .btn-main:active { transform: translateY(0); }
 
-	/* ── SWITCH LINE ── */
-	.switch {
-	  text-align: center; margin-top: 16px;
-	  font-size: 0.88rem; color: #7a7aaa;
-	}
-	.switch button {
-	  background: none; border: none; cursor: pointer;
-	  color: #a29bfe; font-family: 'Outfit', sans-serif;
-	  font-size: 0.88rem; font-weight: 600; margin-left: 4px;
-	  transition: color .2s;
-	}
-	.switch button:hover { color: #fff; }
+    /* ── SWITCH LINE ── */
+    .switch {
+      text-align: center; margin-top: 16px;
+      font-size: 0.88rem; color: #7a7aaa;
+    }
+    .switch button {
+      background: none; border: none; cursor: pointer;
+      color: #a29bfe; font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem; font-weight: 600; margin-left: 4px;
+      transition: color .2s;
+    }
+    .switch button:hover { color: #fff; }
 
-	/* ── AVATAR  LOADER ──*/
-	.spinner-border {
-		display: none;
-		width: 2rem;
-		height: 2rem;
-		border: 4px solid #3232327b;
-		border-top: 4px solid #a29bfe;
-		border-radius: 50%;
-		animation: spinner-border 0.75s linear infinite;
-		}
-		@keyframes spinner-border {
-			to { transform: rotate(360deg); }
-		}
-	/* ── AVATAR ── */
-	.avatar-row {
-	  width: 100%;
-	  display: flex;
-	  align-items: center;
-	  gap: 12px;
-	  margin-bottom: 13px;
-	}
-	.avatar-row .name-field { flex: 1; margin-bottom: 0; }
-	.avatar-wrap {
-	  position: relative;
-	  width: 82px; height: 82px;
-	  flex-shrink: 0; cursor: pointer;
-	}
-	.avatar-box {
-	  width: 82px; height: 82px;
-	  border-radius: 14px;
-	  border: 1.5px solid rgba(140,80,255,0.6);
-	  background: rgba(90,50,180,0.15);
-	  display: flex; align-items: center; justify-content: center;
-	  overflow: hidden;
-	  box-shadow: 0 0 18px rgba(108,92,231,0.2);
-	  transition: border-color .2s, box-shadow .2s;
-	}
-	.avatar-box:hover {
-	  border-color: rgba(180,120,255,0.9);
-	  box-shadow: 0 0 26px rgba(108,92,231,0.45);
-	}
-	.avatar-box img {
-	  width: 100%; height: 100%; object-fit: cover;
-	  display: none; border-radius: 12px;
-	}
-	.avatar-plus {
-	  position: absolute; top: -7px; right: -7px;
-	  width: 20px; height: 20px; border-radius: 6px;
-	  background: #1a1050;
-	  border: 1.5px solid rgba(140,80,255,0.7);
-	  display: flex; align-items: center; justify-content: center;
-	  font-size: 14px; color: #a29bfe; line-height: 1;
-	}
-	#avatarInput { display: none; }
+    /* ── AVATAR  LOADER ──*/
+    .spinner-border {
+        display: none;
+        width: 2rem;
+        height: 2rem;
+        border: 4px solid #3232327b;
+        border-top: 4px solid #a29bfe;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+        }
+        @keyframes spinner-border {
+            to { transform: rotate(360deg); }
+        }   
+    /* ── AVATAR ── */
+    .avatar-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+    .avatar-row .name-field { flex: 1; margin-bottom: 0; }
+    .avatar-wrap {
+      position: relative;
+      width: 82px; height: 82px;
+      flex-shrink: 0; cursor: pointer;
+    }
+    .avatar-box {
+      width: 82px; height: 82px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(140,80,255,0.6);
+      background: rgba(90,50,180,0.15);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 18px rgba(108,92,231,0.2);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .avatar-box:hover {
+      border-color: rgba(180,120,255,0.9);
+      box-shadow: 0 0 26px rgba(108,92,231,0.45);
+    }
+    .avatar-box img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: none; border-radius: 12px;
+    }
+    .avatar-plus {
+      position: absolute; top: -7px; right: -7px;
+      width: 20px; height: 20px; border-radius: 6px;
+      background: #1a1050;
+      border: 1.5px solid rgba(140,80,255,0.7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #a29bfe; line-height: 1;
+    }
+    #avatarInput { display: none; }
 
-	/* ── SLIDE ANIMATIONS ── */
-	@keyframes slideOutLeft {
-	  from { transform: translateX(0);      opacity: 1; }
-	  to   { transform: translateX(-220px); opacity: 0; }
-	}
-	@keyframes slideInRight {
-	  from { transform: translateX(220px);  opacity: 0; }
-	  to   { transform: translateX(0);      opacity: 1; }
-	}
-	@keyframes slideOutRight {
-	  from { transform: translateX(0);      opacity: 1; }
-	  to   { transform: translateX(220px);  opacity: 0; }
-	}
-	@keyframes slideInLeft {
-	  from { transform: translateX(-220px); opacity: 0; }
-	  to   { transform: translateX(0);      opacity: 1; }
-	}
-	.slide-out-left  { animation: slideOutLeft  0.4s ease-out forwards; }
-	.slide-in-right  { animation: slideInRight  0.4s ease-out forwards; }
-	.slide-out-right { animation: slideOutRight 0.4s ease-out forwards; }
-	.slide-in-left   { animation: slideInLeft   0.4s ease-out forwards; }
+    /* ── SLIDE ANIMATIONS ── */
+    @keyframes slideOutLeft {
+      from { transform: translateX(0);      opacity: 1; }
+      to   { transform: translateX(-220px); opacity: 0; }
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(220px);  opacity: 0; }
+      to   { transform: translateX(0);      opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0);      opacity: 1; }
+      to   { transform: translateX(220px);  opacity: 0; }
+    }
+    @keyframes slideInLeft {
+      from { transform: translateX(-220px); opacity: 0; }
+      to   { transform: translateX(0);      opacity: 1; }
+    }
+    .slide-out-left  { animation: slideOutLeft  0.4s ease-out forwards; }
+    .slide-in-right  { animation: slideInRight  0.4s ease-out forwards; }
+    .slide-out-right { animation: slideOutRight 0.4s ease-out forwards; }
+    .slide-in-left   { animation: slideInLeft   0.4s ease-out forwards; }
 
-	/* ── INNER PANELS ── */
-	.inner-panel {
-	  width: 100%;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	}
-	#verify-panel { display: none; }
+    /* ── INNER PANELS ── */
+    .inner-panel {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #verify-panel { display: none; }
 
-	/* ── OTP ── */
-	.otp-wrap {
-	  display: flex;
-	  gap: 10px;
-	  justify-content: center;
-	  width: 100%;
-	  margin-bottom: 8px;
-	}
-	.otp-wrap input {
-	  width: 50px; height: 58px;
-	  text-align: center;
-	  font-size: 1.4rem; font-weight: 700;
-	  font-family: 'Outfit', sans-serif;
-	  color: #fff;
-	  background: rgba(108,92,231,0.08);
-	  border: 1.5px solid rgba(108,92,231,0.4);
-	  border-radius: 12px;
-	  outline: none;
-	  caret-color: transparent;
-	  transition: border-color .2s, box-shadow .2s;
-	}
-	.otp-wrap input:focus {
-	  border-color: rgba(140,100,255,0.9);
-	  box-shadow: 0 0 0 3px rgba(108,92,231,0.2);
-	}
-	.otp-wrap input.filled {
-	  border-color: rgba(140,100,255,0.7);
-	  background: rgba(108,92,231,0.18);
-	}
-	.otp-wrap input.error {
-	  border-color: rgba(255,80,80,0.8) !important;
-	  box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important;
-	}
-	.otp-hint {
-	  font-size: 0.83rem; color: #7a7aaa;
-	  text-align: center; margin-bottom: 24px;
-	}
-	.resend {
-	  font-size: 0.83rem; color: #7a7aaa;
-	  text-align: center; margin-top: 14px;
-	}
-	.resend button {
-	  background: none; border: none; cursor: pointer;
-	  color: #a29bfe; font-family: 'Outfit', sans-serif;
-	  font-size: 0.83rem; font-weight: 600; margin-left: 4px;
-	  transition: color .2s;
-	}
-	.resend button:hover { color: #fff; }
+    /* ── OTP ── */
+    .otp-wrap {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .otp-wrap input {
+      width: 50px; height: 58px;
+      text-align: center;
+      font-size: 1.4rem; font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      background: rgba(108,92,231,0.08);
+      border: 1.5px solid rgba(108,92,231,0.4);
+      border-radius: 12px;
+      outline: none;
+      caret-color: transparent;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .otp-wrap input:focus {
+      border-color: rgba(140,100,255,0.9);
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.2);
+    }
+    .otp-wrap input.filled {
+      border-color: rgba(140,100,255,0.7);
+      background: rgba(108,92,231,0.18);
+    }
+    .otp-wrap input.error {
+      border-color: rgba(255,80,80,0.8) !important;
+      box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important;
+    }
+    .otp-hint {
+      font-size: 0.83rem; color: #7a7aaa;
+      text-align: center; margin-bottom: 24px;
+    }
+    .resend {
+      font-size: 0.83rem; color: #7a7aaa;
+      text-align: center; margin-top: 14px;
+    }
+    .resend button {
+      background: none; border: none; cursor: pointer;
+      color: #a29bfe; font-family: 'Outfit', sans-serif;
+      font-size: 0.83rem; font-weight: 600; margin-left: 4px;
+      transition: color .2s;
+    }
+    .resend button:hover { color: #fff; }
   </style>
 </head>
 <body>
 
   <!-- logo — always visible, never flips -->
   <div class="logo-header">
-	<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-	  <defs>
-		<linearGradient id="gL" x1="0" y1="0" x2="1" y2="1">
-		  <stop offset="0%" stop-color="#00e5c8"/>
-		  <stop offset="100%" stop-color="#7b2ff7"/>
-		</linearGradient>
-	  </defs>
-	  <circle cx="32" cy="20" r="14" fill="url(#gL)"/>
-	  <circle cx="32" cy="20" r="6"  fill="#07071a"/>
-	  <path d="M10 38L32 20L54 38H44V54H20V38Z" fill="white"/>
-	  <rect x="26" y="42" width="12" height="12" rx="1" fill="#07071a"/>
-	</svg>
-	<span class="logo-name">Hometown Hub</span>
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gL" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00e5c8"/>
+          <stop offset="100%" stop-color="#7b2ff7"/>
+        </linearGradient>
+      </defs>
+      <circle cx="32" cy="20" r="14" fill="url(#gL)"/>
+      <circle cx="32" cy="20" r="6"  fill="#07071a"/>
+      <path d="M10 38L32 20L54 38H44V54H20V38Z" fill="white"/>
+      <rect x="26" y="42" width="12" height="12" rx="1" fill="#07071a"/>
+    </svg>
+    <span class="logo-name">Hometown Hub</span>
   </div>
 
   <div class="scene">
-	<div class="card" id="card">
+    <div class="card" id="card">
 
-	  <!-- ░░ FRONT — LOGIN ░░ -->
-	  <div class="face back">
+      <!-- ░░ BACK — LOGIN ░░ -->
+      <div class="face back">
 
-		<p class="page-label">Login</p>
+        <p class="page-label">Login</p>
 
-		<!-- email -->
-		<div class="field">
-		  <span class="fi">
-			<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-			  <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-			</svg>
-		  </span>
-		  <label for="l-email">Email</label>
-		  <input id="l-email" type="email" placeholder="Enter your email" autocomplete="email"/>
-		  <span class="err-msg">Please enter a valid email</span>
-		</div>
+        <!-- email -->
+        <div class="field">
+          <span class="fi">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
+            </svg>
+          </span>
+          <label for="l-email">Email</label>
+          <input id="l-email" type="email" placeholder="Enter your email" autocomplete="email"/>
+          <span class="err-msg">Please enter a valid email</span>
+        </div>
 
-		<!-- password -->
-		<div class="field">
-		  <span class="fi">
-			<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-			  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-			</svg>
-		  </span>
-		  <label for="l-pwd">Password</label>
-		  <input id="l-pwd" type="password" placeholder="Enter your password"/>
-		  <span class="fr" id="lEyeBtn">
-			<svg id="lEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-			  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-			  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-			  <line x1="1" y1="1" x2="23" y2="23"/>
-			</svg>
-			<svg id="lEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-			  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-			  <circle cx="12" cy="12" r="3"/>
-			</svg>
-		  </span>
-		  <span class="err-msg">Password cannot be empty</span>
-		</div>
+        <!-- password -->
+        <div class="field">
+          <span class="fi">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </span>
+          <label for="l-pwd">Password</label>
+          <input id="l-pwd" type="password" placeholder="Enter your password"/>
+          <span class="fr" id="lEyeBtn">
+            <svg id="lEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+            <svg id="lEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+          <span class="err-msg">Password cannot be empty</span>
+        </div>
 
-		<a href="#" class="forgot">Forgot password?</a>
-		<button type="button" class="btn-main" id="login-btn">Log In</button>
+        <a href="#" class="forgot">Forgot password?</a>
+        <button type="button" class="btn-main" id="login-btn">Log In</button>
 
-		<p class="switch" style="margin-top:16px">
-		  Don't have an account?
-		  <button type="button" id="toRegister">Register</button>
-		</p>
+        <p class="switch" style="margin-top:16px">
+          Don't have an account?
+          <button type="button" id="toRegister">Register</button>
+        </p>
 
-	  </div><!-- end .face.front -->
+      </div><!-- end .face.front -->
 
-	  <!-- ░░ BACK — REGISTER + OTP ░░ -->
-	  <div class="face front">
+      <!-- ░░ FRONT — REGISTER + OTP ░░ -->
+      <div class="face front">
 
-		<!-- PANEL 1: Register -->
-		<div class="inner-panel" id="reg-panel">
+        <!-- PANEL 1: Register -->
+        <div class="inner-panel" id="reg-panel">
 
-		  <p class="page-label">Register</p>
+          <p class="page-label">Register</p>
 
-		  <!-- avatar + name row -->
-		  <div class="avatar-row">
-			<div class="field name-field">
-			  <span class="fi">
-				<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-				  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-				</svg>
-			  </span>
-			  <label for="r-name">Full Name</label>
-			  <input id="r-name" type="text" placeholder="Full Name"/>
-			  <span class="err-msg">Name cannot be empty</span>
-			</div>
+          <!-- avatar + name row -->
+            <div class="field name-field">
+              <span class="fi">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              <label for="r-name">Full Name</label>
+              <input id="r-name" type="text" placeholder="Full Name"/>
+              <span class="err-msg">Name cannot be empty</span>
+            </div>
 
-			<div class="avatar-wrap" onclick="document.getElementById('avatarInput').click()">
-			  <div class="avatar-box" id="avatarBox">
-				<svg width="44" height="44" viewBox="0 0 64 64" fill="none">
-				  <defs>
-					<linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
-					  <stop offset="0%" stop-color="#9060ee"/>
-					  <stop offset="100%" stop-color="#5030c8"/>
-					</linearGradient>
-				  </defs>
-				  <circle cx="32" cy="22" r="12" fill="url(#ag)" opacity=".75"/>
-				  <path d="M10 56C10 42 54 42 54 56" fill="url(#ag)" opacity=".75"/>
-				</svg>
-				<img id="avatarPreview"  alt="avatar"/>
-				<div class="spinner-border text-primary" id="loader" role="status">
-				<span class="visually-hidden"></span>
-				</div>
-			  </div>
+            
 
-			  <div class="avatar-plus">+</div>
-			</div>
-			<input type="file" id="avatarInput" accept="image/*"/>
-		  </div>
+          <!-- email -->
+          <div class="field">
+            <span class="fi">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
+              </svg>
+            </span>
+            <label for="r-email">Email</label>
+            <input id="r-email" type="email" placeholder="Email"/>
+            <span class="err-msg">Please enter a valid email</span>
+          </div>
 
-		  <!-- email -->
-		  <div class="field">
-			<span class="fi">
-			  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-				<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-			  </svg>
-			</span>
-			<label for="r-email">Email</label>
-			<input id="r-email" type="email" placeholder="Email"/>
-			<span class="err-msg">Please enter a valid email</span>
-		  </div>
+          <!-- hometown -->
+          <div class="field">
+            <span class="fi">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </span>
+            <label for="r-town">Hometown</label>
+            <input id="r-town" type="text" placeholder="Hometown"/>
+            <span class="err-msg">Hometown cannot be empty</span>
+          </div>
 
-		  <!-- hometown -->
-		  <div class="field">
-			<span class="fi">
-			  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-				<polyline points="9 22 9 12 15 12 15 22"/>
-			  </svg>
-			</span>
-			<label for="r-town">Hometown</label>
-			<input id="r-town" type="text" placeholder="Hometown"/>
-			<span class="err-msg">Hometown cannot be empty</span>
-		  </div>
+          <!-- password -->
+          <div class="field">
+            <span class="fi">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <label for="r-pwd">Password</label>
+            <input id="r-pwd" type="password" placeholder="Password"/>
+            <span class="fr" id="rEyeBtn">
+              <svg id="rEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+              <svg id="rEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+            <span class="err-msg">Password cannot be empty</span>
+          </div>
 
-		  <!-- password -->
-		  <div class="field">
-			<span class="fi">
-			  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-				<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-			  </svg>
-			</span>
-			<label for="r-pwd">Password</label>
-			<input id="r-pwd" type="password" placeholder="Password"/>
-			<span class="fr" id="rEyeBtn">
-			  <svg id="rEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-				<path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-				<line x1="1" y1="1" x2="23" y2="23"/>
-			  </svg>
-			  <svg id="rEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-				<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-				<circle cx="12" cy="12" r="3"/>
-			  </svg>
-			</span>
-			<span class="err-msg">Password cannot be empty</span>
-		  </div>
+          <button type="button" class="btn-main" id="reg-btn" style="margin-top:4px">Register</button>
+          <p class="switch" style="margin-top:16px">
+            Already have an account?
+            <button type="button" id="toLogin">Log In</button>
+          </p>
 
-		  <button type="button" class="btn-main" id="reg-btn" style="margin-top:4px">Register</button>
-		  <p class="switch" style="margin-top:16px">
-			Already have an account?
-			<button type="button" id="toLogin">Log In</button>
-		  </p>
+        </div><!-- end #reg-panel -->
 
-		</div><!-- end #reg-panel -->
+        <!-- PANEL 2: OTP — hidden until register submitted -->
+        <div class="inner-panel" id="verify-panel">
 
-		<!-- PANEL 2: OTP — hidden until register submitted -->
-		<div class="inner-panel" id="verify-panel">
+          <p class="page-label">Verify Email</p>
+          <p class="otp-hint">Enter the 6‑digit code sent to your email</p>
 
-		  <p class="page-label">Verify Email</p>
-		  <p class="otp-hint">Enter the 6‑digit code sent to your email</p>
+          <div class="otp-wrap" id="otpWrap">
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
+          </div>
 
-		  <div class="otp-wrap" id="otpWrap">
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-			<input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]"/>
-		  </div>
+          <button type="button" class="btn-main" id="verifyBtn" style="margin-top:16px">Verify</button>
 
-		  <button type="button" class="btn-main" id="verifyBtn" style="margin-top:16px">Verify</button>
+          <p class="resend">
+            Didn't receive a code?
+            <button type="button" id="resendBtn">Resend</button>
+          </p>
+          <p class="switch" style="margin-top:8px">
+            <button type="button" id="backToReg">← Back</button>
+          </p>
 
-		  <p class="resend">
-			Didn't receive a code?
-			<button type="button" id="resendBtn">Resend</button>
-		  </p>
-		  <p class="switch" style="margin-top:8px">
-			<button type="button" id="backToReg">← Back</button>
-		  </p>
+        </div><!-- end #verify-panel -->
 
-		</div><!-- end #verify-panel -->
+      </div><!-- end .face.back -->
 
-	  </div><!-- end .face.back -->
-
-	</div><!-- end .card -->
+    </div><!-- end .card -->
   </div><!-- end .scene -->
 
   <script>
 
-	/* ═══════════════════════════════════════
-	  HELPER — validate a list of inputs
-	  returns true if all pass, false if any fail
-	═══════════════════════════════════════ */
-	function validate(inputs) {
-	  let firstBad = null;
+    /* ═══════════════════════════════════════
+      HELPER — validate a list of inputs
+      returns true if all pass, false if any fail
+    ═══════════════════════════════════════ */
+    function validate(inputs) {
+      let firstBad = null;
 
-	  inputs.forEach(inp => {
-		const empty    = !inp.value.trim();
-		const badEmail = inp.type === 'email' && inp.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
+      inputs.forEach(inp => {
+        const empty    = !inp.value.trim();
+        const badEmail = inp.type === 'email' && inp.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
 
-		if (empty || badEmail) {
-		  inp.classList.add('error');
-		  if (!firstBad) firstBad = inp;
-		} else {
-		  inp.classList.remove('error');
-		}
-	  });
+        if (empty || badEmail) {
+          inp.classList.add('error');
+          if (!firstBad) firstBad = inp;
+        } else {
+          inp.classList.remove('error');
+        }
+      });
 
-	  if (firstBad) { firstBad.focus(); return false; }
-	  return true;
-	}
+      if (firstBad) { firstBad.focus(); return false; }
+      return true;
+    }
 
-	/* ═══════════════════════════════════════
-	  HELPER — clear error on any input when user types
-	═══════════════════════════════════════ */
-	function bindClear(inputs) {
-	  inputs.forEach(inp => {
-		inp.addEventListener('input', () => inp.classList.remove('error'));
-	  });
-	}
+    /* ═══════════════════════════════════════
+      HELPER — clear error on any input when user types
+    ═══════════════════════════════════════ */
+    function bindClear(inputs) {
+      inputs.forEach(inp => {
+        inp.addEventListener('input', () => inp.classList.remove('error'));
+      });
+    }
 
-	/* ═══════════════════════════════════════
-	  FLIP CARD
-	═══════════════════════════════════════ */
-	const card = document.getElementById('card');
+    /* ═══════════════════════════════════════
+      FLIP CARD
+    ═══════════════════════════════════════ */
+    const card = document.getElementById('card');
 
-	document.getElementById('toRegister').addEventListener('click', () => {
-	  card.classList.add('flipped');
-	});
-	document.getElementById('toLogin').addEventListener('click', () => {
-	  card.classList.remove('flipped');
-	  showPanel('reg'); // reset back to register panel if on OTP
-	});
+    document.getElementById('toRegister').addEventListener('click', () => {
+      card.classList.add('flipped');
+    });
+    document.getElementById('toLogin').addEventListener('click', () => {
+      card.classList.remove('flipped');
+      showPanel('reg'); // reset back to register panel if on OTP
+    });
 
-	/* ═══════════════════════════════════════
-	  LOGIN VALIDATION
-	═══════════════════════════════════════ */
-	const loginInputs = [
-	  document.getElementById('l-email'),
-	  document.getElementById('l-pwd')
-	];
-	bindClear(loginInputs);
+    /* ═══════════════════════════════════════
+      LOGIN VALIDATION
+    ═══════════════════════════════════════ */
+    const loginInputs = [
+      document.getElementById('l-email'),
+      document.getElementById('l-pwd')
+    ];
+    bindClear(loginInputs);
 
-	document.getElementById('login-btn').addEventListener('click', () => {
-	  if (!validate(loginInputs)) return;
-	  alert('Logging in!'); // replace with your real login logic
-	});
+    document.getElementById('login-btn').addEventListener('click', () => {
+      if (!validate(loginInputs)) return;
+      alert('Logging in!'); // replace with your real login logic
+    });
 
-	/* ═══════════════════════════════════════
-	  LOGIN EYE TOGGLE
-	═══════════════════════════════════════ */
-	document.getElementById('lEyeBtn').addEventListener('click', () => {
-	  const p = document.getElementById('l-pwd');
-	  const show = p.type === 'password';
-	  p.type = show ? 'text' : 'password';
-	  document.getElementById('lEyeOff').style.display = show ? 'none' : '';
-	  document.getElementById('lEyeOn').style.display  = show ? ''     : 'none';
-	});
+    /* ═══════════════════════════════════════
+      LOGIN EYE TOGGLE
+    ═══════════════════════════════════════ */
+    document.getElementById('lEyeBtn').addEventListener('click', () => {
+      const p = document.getElementById('l-pwd');
+      const show = p.type === 'password';
+      p.type = show ? 'text' : 'password';
+      document.getElementById('lEyeOff').style.display = show ? 'none' : '';
+      document.getElementById('lEyeOn').style.display  = show ? ''     : 'none';
+    });
 
-	/* ═══════════════════════════════════════
-	  REGISTER VALIDATION
-	═══════════════════════════════════════ */
-	const regInputs = [
-	  document.getElementById('r-name'),
-	  document.getElementById('r-email'),
-	  document.getElementById('r-town'),
-	  document.getElementById('r-pwd')
-	];
-	bindClear(regInputs);
+    /* ═══════════════════════════════════════
+      REGISTER VALIDATION
+    ═══════════════════════════════════════ */
+    const regInputs = [
+      document.getElementById('r-name'),
+      document.getElementById('r-email'),
+      document.getElementById('r-town'),
+      document.getElementById('r-pwd')
+    ];
+    bindClear(regInputs);
 
-	document.getElementById('reg-btn').addEventListener('click', () => {
-	  if (!validate(regInputs)) return;
-	  showPanel('otp'); // all good — slide to OTP
-	});
+    document.getElementById('reg-btn').addEventListener('click', () => {
+      if (!validate(regInputs)) return;
+      showPanel('otp'); // all good — slide to OTP
+    });
 
-	/* ═══════════════════════════════════════
-	  REGISTER EYE TOGGLE
-	═══════════════════════════════════════ */
-	document.getElementById('rEyeBtn').addEventListener('click', () => {
-	  const p = document.getElementById('r-pwd');
-	  const show = p.type === 'password';
-	  p.type = show ? 'text' : 'password';
-	  document.getElementById('rEyeOff').style.display = show ? 'none' : '';
-	  document.getElementById('rEyeOn').style.display  = show ? ''     : 'none';
-	});
+    /* ═══════════════════════════════════════
+      REGISTER EYE TOGGLE
+    ═══════════════════════════════════════ */
+    document.getElementById('rEyeBtn').addEventListener('click', () => {
+      const p = document.getElementById('r-pwd');
+      const show = p.type === 'password';
+      p.type = show ? 'text' : 'password';
+      document.getElementById('rEyeOff').style.display = show ? 'none' : '';
+      document.getElementById('rEyeOn').style.display  = show ? ''     : 'none';
+    });
 
-	/* ═══════════════════════════════════════
-	AVATAR PREVIEW
-	═══════════════════════════════════════ */
-	async function get_image(file, formData){
-	  try{
-		const CLOUD_NAME = 'daiwsn1ot';
-		const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-		const response = await fetch(url,{method:'POST', body:formData});
-		const data = await response.json();
-		return data.secure_url;
-	  } catch (e){
-		alert(e);
-	  }
-	}
-	document.getElementById('avatarInput').addEventListener('change', async function () {
-	  const file = this.files[0];
-	  const formData = new FormData();
-	  if (!file) return;
-	  formData.append('file',file);
-	  formData.append('upload_preset',"hometownhub_preset");
-	  document.getElementById('avatarBox').querySelector('svg').style.display = 'none';
-	  document.getElementById("loader").style.display='block';
-	  const imageURL = await get_image(file,formData);
-	  if(imageURL){
-		const preview = document.getElementById('avatarPreview');
-		preview.src = imageURL;
-		preview.style.display='block';
-	  }
-	  document.getElementById("loader").style.display='none';
-	  window.uploadedPhotoUrl = imageURL;
-	  });
-	/* ═══════════════════════════════════════
-	  PANEL SWITCHER (register ↔ OTP)
-	═══════════════════════════════════════ */
-	function showPanel(direction) {
-	  const regPanel = document.getElementById('reg-panel');
-	  const verPanel = document.getElementById('verify-panel');
+    /* ═══════════════════════════════════════
+      PANEL SWITCHER (register ↔ OTP)
+    ═══════════════════════════════════════ */
+    function showPanel(direction) {
+      const regPanel = document.getElementById('reg-panel');
+      const verPanel = document.getElementById('verify-panel');
 
-	  if (direction === 'otp') {
-		regPanel.classList.add('slide-out-left');
-		setTimeout(() => {
-		regPanel.style.display = 'none';
-		regPanel.classList.remove('slide-out-left');
-		verPanel.style.display = 'flex';
-		verPanel.classList.add('slide-in-right');
-		document.querySelector('#otpWrap input').focus();
-		setTimeout(() => verPanel.classList.remove('slide-in-right'), 400);
-		}, 400);
+      if (direction === 'otp') {
+        regPanel.classList.add('slide-out-left');
+        setTimeout(() => {
+          regPanel.style.display = 'none';
+          regPanel.classList.remove('slide-out-left');
+          verPanel.style.display = 'flex';
+          verPanel.classList.add('slide-in-right');
+          document.querySelector('#otpWrap input').focus();
+          setTimeout(() => verPanel.classList.remove('slide-in-right'), 400);
+        }, 400);
 
-	  } else {
-		// only animate if verify panel is visible
-		if (verPanel.style.display === 'flex') {
-		  verPanel.classList.add('slide-out-right');
-		  setTimeout(() => {
-			verPanel.style.display = 'none';
-			verPanel.classList.remove('slide-out-right');
-			regPanel.style.display = 'flex';
-			regPanel.classList.add('slide-in-left');
-			setTimeout(() => regPanel.classList.remove('slide-in-left'), 400);
-		  }, 400);
-		} else {
-		  regPanel.style.display = 'flex';
-		}
-	  }
-	}
-	/* ═══════════════════════════════════════
-	  BACK TO REGISTER
-	═══════════════════════════════════════ */
-	document.getElementById('backToReg').addEventListener('click', () => {
-	  showPanel('reg');
-	});
+      } else {
+        // only animate if verify panel is visible
+        if (verPanel.style.display === 'flex') {
+          verPanel.classList.add('slide-out-right');
+          setTimeout(() => {
+            verPanel.style.display = 'none';
+            verPanel.classList.remove('slide-out-right');
+            regPanel.style.display = 'flex';
+            regPanel.classList.add('slide-in-left');
+            setTimeout(() => regPanel.classList.remove('slide-in-left'), 400);
+          }, 400);
+        } else {
+          regPanel.style.display = 'flex';
+        }
+      }
+    }
+    /* ═══════════════════════════════════════
+      BACK TO REGISTER
+    ═══════════════════════════════════════ */
+    document.getElementById('backToReg').addEventListener('click', () => {
+      showPanel('reg');
+    });
 
-	/* ═══════════════════════════════════════
-	  OTP BOXES
-	═══════════════════════════════════════ */
-	const otpInputs = [...document.querySelectorAll('#otpWrap input')];
+    /* ═══════════════════════════════════════
+      OTP BOXES
+    ═══════════════════════════════════════ */
+    const otpInputs = [...document.querySelectorAll('#otpWrap input')];
 
-	otpInputs.forEach((inp, i) => {
-	  inp.addEventListener('keydown', e => {
-		if (
-		  !/^[0-9]$/.test(e.key) &&
-		  !['Backspace','Delete','Tab','ArrowLeft','ArrowRight'].includes(e.key)
-		) {
-		  e.preventDefault();
-		}
-		if (e.key === 'Backspace') {
-		  inp.value = '';
-		  inp.classList.remove('filled', 'error');
-		  if (i > 0) otpInputs[i - 1].focus();
-		}
-	  });
+    otpInputs.forEach((inp, i) => {
+      inp.addEventListener('keydown', e => {
+        if (
+          !/^[0-9]$/.test(e.key) &&
+          !['Backspace','Delete','Tab','ArrowLeft','ArrowRight'].includes(e.key)
+        ) {
+          e.preventDefault();
+        }
+        if (e.key === 'Backspace') {
+          inp.value = '';
+          inp.classList.remove('filled', 'error');
+          if (i > 0) otpInputs[i - 1].focus();
+        }
+      });
 
-	  inp.addEventListener('input', () => {
-		inp.value = inp.value.replace(/[^0-9]/g, '');
-		inp.classList.remove('error');
-		if (inp.value) {
-		  inp.classList.add('filled');
-		  if (i < otpInputs.length - 1) otpInputs[i + 1].focus();
-		} else {
-		  inp.classList.remove('filled');
-		}
-	  });
+      inp.addEventListener('input', () => {
+        inp.value = inp.value.replace(/[^0-9]/g, '');
+        inp.classList.remove('error');
+        if (inp.value) {
+          inp.classList.add('filled');
+          if (i < otpInputs.length - 1) otpInputs[i + 1].focus();
+        } else {
+          inp.classList.remove('filled');
+        }
+      });
 
-	  inp.addEventListener('paste', e => {
-		e.preventDefault();
-		const digits = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
-		digits.split('').forEach((ch, j) => {
-		  if (otpInputs[i + j]) {
-			otpInputs[i + j].value = ch;
-			otpInputs[i + j].classList.add('filled');
-			otpInputs[i + j].classList.remove('error');
-		  }
-		});
-		otpInputs[Math.min(i + digits.length, otpInputs.length - 1)].focus();
-	  });
+      inp.addEventListener('paste', e => {
+        e.preventDefault();
+        const digits = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
+        digits.split('').forEach((ch, j) => {
+          if (otpInputs[i + j]) {
+            otpInputs[i + j].value = ch;
+            otpInputs[i + j].classList.add('filled');
+            otpInputs[i + j].classList.remove('error');
+          }
+        });
+        otpInputs[Math.min(i + digits.length, otpInputs.length - 1)].focus();
+      });
 
-	  inp.addEventListener('click', () => inp.select());
-	});
+      inp.addEventListener('click', () => inp.select());
+    });
 
-	/* ═══════════════════════════════════════
-	  VERIFY BUTTON
-	═══════════════════════════════════════ */
-	document.getElementById('verifyBtn').addEventListener('click', () => {
-	  const otp = otpInputs.map(i => i.value).join('');
-	  let allFilled = true;
+    /* ═══════════════════════════════════════
+      VERIFY BUTTON
+    ═══════════════════════════════════════ */
+    document.getElementById('verifyBtn').addEventListener('click', () => {
+      const otp = otpInputs.map(i => i.value).join('');
+      let allFilled = true;
 
-	  otpInputs.forEach(inp => {
-		if (!inp.value) {
-		  inp.classList.add('error');
-		  allFilled = false;
-		}
-	  });
+      otpInputs.forEach(inp => {
+        if (!inp.value) {
+          inp.classList.add('error');
+          allFilled = false;
+        }
+      });
 
-	  if (!allFilled) {
-		// focus first empty box
-		const firstEmpty = otpInputs.find(i => !i.value);
-		if (firstEmpty) firstEmpty.focus();
-		return;
-	  }
+      if (!allFilled) {
+        // focus first empty box
+        const firstEmpty = otpInputs.find(i => !i.value);
+        if (firstEmpty) firstEmpty.focus();
+        return;
+      }
 
-	  alert('OTP entered: ' + otp); // replace with your real verify logic
-	});
+      alert('OTP entered: ' + otp); // replace with your real verify logic
+    });
 
-	/* ═══════════════════════════════════════
-	  RESEND
-	═══════════════════════════════════════ */
-	document.getElementById('resendBtn').addEventListener('click', () => {
-	  otpInputs.forEach(inp => {
-		inp.value = '';
-		inp.classList.remove('filled', 'error');
-	  });
-	  otpInputs[0].focus();
-	  alert('Code resent!'); // replace with your real resend logic
-	});
+    /* ═══════════════════════════════════════
+      RESEND
+    ═══════════════════════════════════════ */
+    document.getElementById('resendBtn').addEventListener('click', () => {
+      otpInputs.forEach(inp => {
+        inp.value = '';
+        inp.classList.remove('filled', 'error');
+      });
+      otpInputs[0].focus();
+      alert('Code resent!'); // replace with your real resend logic
+    });
 
   </script>
 </body>
