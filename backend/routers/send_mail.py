@@ -37,4 +37,3 @@ def send_otp(name,receiver_mail):
         return (response.status_code)
     except Exception  as error:
         return (error)
-print(send_otp("Ayan",'ilovenothing007@gmail.com'))
