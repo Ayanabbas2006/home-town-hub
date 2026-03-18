@@ -573,11 +573,10 @@
       SEND OTP USING API
     ═══════════════════════════════════════ */
     async function send_email(){
-      const name = (document.getElementById("r-name"));
-      const email = (document.getElementById("r-email"));
-      console.log(name,email);
-      /*const response = await fetch("https://home-town-hub.onrender.com/${name}/${email}")
-      .then(response => response.json);*/
+      const name = encodeURIComponent(document.getElementById("r-name").value);
+      const email = encodeURIComponent(document.getElementById("r-email").value);
+      const response = await fetch("https://home-town-hub.onrender.com/${name}/${email}")
+      .then(response => response.json);
     }
     /* ═══════════════════════════════════════
       PANEL SWITCHER (register ↔ OTP)
