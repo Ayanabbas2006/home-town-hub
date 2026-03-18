@@ -573,9 +573,9 @@
       SEND OTP USING API
     ═══════════════════════════════════════ */
     async function send_email(){
-      const name = document.getElementById("r-name");
-      const email = document.getElementById("r-email");
-      const response = await fetch("https://home-town-hub.onrender.com/${encodeURIComponent(name)}/${encodeURIComponent(email)}")
+      const name = encodeURIComponent(document.getElementById("r-name"));
+      const email = encodeURIComponent(document.getElementById("r-email"));
+      const response = await fetch("https://home-town-hub.onrender.com/${name}/${email}")
       .then(response => response.json);
     }
     /* ═══════════════════════════════════════
