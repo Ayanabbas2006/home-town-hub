@@ -569,7 +569,15 @@
       document.getElementById('rEyeOff').style.display = show ? 'none' : '';
       document.getElementById('rEyeOn').style.display  = show ? ''     : 'none';
     });
-
+    /* ═══════════════════════════════════════
+      SEND OTP USING API
+    ═══════════════════════════════════════ */
+    async function send_email(){
+      const name = document.getElementById("r-name");
+      const email = document.getElementById("r-email");
+      const response = await fetch("https://home-town-hub.onrender.com/${encodedURIComponent(name)}/${encodedURIComponent(email)}")
+      .then(response => response.json);
+    }
     /* ═══════════════════════════════════════
       PANEL SWITCHER (register ↔ OTP)
     ═══════════════════════════════════════ */
@@ -587,7 +595,7 @@
           document.querySelector('#otpWrap input').focus();
           setTimeout(() => verPanel.classList.remove('slide-in-right'), 400);
         }, 400);
-
+        send_email();
       } else {
         // only animate if verify panel is visible
         if (verPanel.style.display === 'flex') {
