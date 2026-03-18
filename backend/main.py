@@ -14,8 +14,8 @@ app = FastAPI(title="Hometown Hub Api", version="0.0.1")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origin=['*'],
-    allow_method=['*'],
+    allow_origins=['*'],
+    allow_methods=['*'],
     allow_headers=['*']
 )
 
