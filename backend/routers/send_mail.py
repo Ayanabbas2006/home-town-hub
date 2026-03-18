@@ -4,7 +4,8 @@ from sendgrid.helpers.mail import Mail
 import random
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv("Hometown_hub/backend/.env")
+
 def generate_otp():
     return random.randint(111111,999999)
 
