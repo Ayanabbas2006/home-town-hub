@@ -727,7 +727,6 @@
       const otp = otpInputs.map(i => i.value).join('');
       const test = check(otp).then(res=>{
         const status = res;
-      });
         console.log(status);
         if (status=='1'){
           showPanel('photo', 'otp');
@@ -737,6 +736,7 @@
           otpInputs[0].focus();
         }
       });
+    });
 
     /* ── resend ──────────────────────────── */
     document.getElementById('resendBtn').addEventListener('click', () => {
