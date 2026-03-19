@@ -575,7 +575,7 @@
     async function send_email(){
       const name = (document.getElementById("r-name").value);
       const email = (document.getElementById("r-email").value);
-      const response = await fetch("https://home-town-hub.onrender.com/${encodeURIConponent(name)}/${encodeURIComponent(email)}")
+      const response = await fetch("https://home-town-hub.onrender.com/${(name)}/${(email)}")
       .then(response => response.json);
       console.log(email,name)
     }
