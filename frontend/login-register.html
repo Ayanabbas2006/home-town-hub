@@ -593,8 +593,8 @@
 
     document.getElementById('reg-btn').addEventListener('click', () => {
       if (!validate(regInputs)) return;
-      showPanel('otp');
       send_email();
+      showPanel('otp');
     });
 
     document.getElementById('rEyeBtn').addEventListener('click', () => {
@@ -726,7 +726,8 @@
       if (!allFilled) { otpInputs.find(i => !i.value)?.focus(); return; }
       const otp = otpInputs.map(i => i.value).join('');
       const test = check(otp);
-      if (test.status==1){
+      console.log(test.status);
+      if (test.status=='1'){
         showPanel('photo', 'otp');
       }
       else{
