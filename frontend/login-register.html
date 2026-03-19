@@ -610,9 +610,17 @@
       const name  = document.getElementById('r-name').value;
       const email = document.getElementById('r-email').value;
       try {
-        const res  = await fetch(`https://home-town-hub.onrender.com/${encodeURIComponent(name)}/${encodeURIComponent(email)}`);
-        const data = await res.json();
-        console.log('OTP sent:', data);
+        const res  = await fetch("https://home-town-hub.onrender.com/register/otp",{
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email
+          })
+      });
       } catch (err) {
         console.error('OTP send failed:', err);
       }
