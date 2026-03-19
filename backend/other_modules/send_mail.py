@@ -40,6 +40,6 @@ def send_otp(name,receiver_mail):
         return {"Error":error}
 
 def verify_otp(user_otp):
-    if user_otp == otp:
+    if user_otp.otp == int(otp):
         return {'status':1}
     return {'status':0}
