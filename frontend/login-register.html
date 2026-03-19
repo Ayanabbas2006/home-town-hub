@@ -727,16 +727,16 @@
       const otp = otpInputs.map(i => i.value).join('');
       const test = check(otp).then(res=>{
         const status = res;
-      })
-      console.log(status);
-      if (status=='1'){
-        showPanel('photo', 'otp');
-      }
-      else{
-        otpInputs.forEach(inp=>{ inp.value =""; inp.classList.add('error')});
-        otpInputs[0].focus();
-      }
-    });
+      });
+        console.log(status);
+        if (status=='1'){
+          showPanel('photo', 'otp');
+        }
+        else{
+          otpInputs.forEach(inp=>{ inp.value =""; inp.classList.add('error')});
+          otpInputs[0].focus();
+        }
+      });
 
     /* ── resend ──────────────────────────── */
     document.getElementById('resendBtn').addEventListener('click', () => {
