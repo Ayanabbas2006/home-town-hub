@@ -34,6 +34,6 @@ def send_otp(name,receiver_mail):
     try:
         sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
         response = sg.send(message=message)
-        return (response.status_code)
+        return {"Response":response.status_code}
     except Exception  as error:
-        return (error)
+        return {"Error":error}
