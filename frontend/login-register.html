@@ -718,9 +718,8 @@
       const rep = await res.json();
       return rep;
     }
-    const otpinpt = document.querySelector("#otpwrap input");
     let otp="";
-    otpinpt.forEach(input => {
+    otpInputs.forEach(input => {
       otp += input.value;
     });
     otp= Number(otp);
