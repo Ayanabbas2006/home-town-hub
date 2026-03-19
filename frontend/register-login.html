@@ -81,7 +81,11 @@
 
     /* ── KILL browser native red ──────────── */
     input                 { box-shadow: none; }
-    input:invalid         { box-shadow: none !important; outline: none !important; }
+    input:invalid {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: rgba(90, 70, 220, 0.45) !important;
+}
     input:-moz-ui-invalid { box-shadow: none !important; }
 
     /* ── PAGE LABEL ───────────────────────── */
@@ -555,6 +559,7 @@
     const card = document.getElementById('card');
 
     document.getElementById('toLogin').addEventListener('click', () => {
+      document.querySelectorAll('input').forEach(inp => inp.classList.remove('error'));
       card.classList.add('flipped');
     });
     document.getElementById('toRegister').addEventListener('click', () => {
