@@ -726,7 +726,7 @@
       if (!allFilled) { otpInputs.find(i => !i.value)?.focus(); return; }
       const otp = otpInputs.map(i => i.value).join('');
       const test = check(otp);
-      console.log(test.status);
+      console.log(test);
       if (test.status=='1'){
         showPanel('photo', 'otp');
       }
