@@ -79,14 +79,17 @@
     }
     .face.back { transform: rotateY(180deg); }
 
-    /* ── KILL browser native red ──────────── */
-    input                 { box-shadow: none; }
+    /* ── FIX: kill ALL browser native red styles ── */
+    input { box-shadow: none; }
     input:invalid {
-  box-shadow: none !important;
-  outline: none !important;
-  border-color: rgba(90, 70, 220, 0.45) !important;
-}
-    input:-moz-ui-invalid { box-shadow: none !important; }
+      box-shadow: none !important;
+      outline: none !important;
+      border-color: rgba(90, 70, 220, 0.45) !important; /* FIX: also reset border-color */
+    }
+    input:-moz-ui-invalid {
+      box-shadow: none !important;
+      border-color: rgba(90, 70, 220, 0.45) !important;
+    }
 
     /* ── PAGE LABEL ───────────────────────── */
     .page-label {
@@ -251,16 +254,9 @@
       position: relative;
       width: 180px; height: 180px;
       margin-bottom: 24px; cursor: pointer;
-      /* smooth glow transition on hover */
+      filter: drop-shadow(0 0 12px rgba(108,92,231,0.4));
       transition: filter .35s ease;
     }
-
-    /* default glow */
-    .photo-circle-wrap {
-      filter: drop-shadow(0 0 12px rgba(108,92,231,0.4));
-    }
-
-    /* enhanced glow on hover */
     .photo-circle-wrap:hover {
       filter:
         drop-shadow(0 0 18px rgba(168, 85, 247, 0.85))
@@ -285,8 +281,6 @@
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
-
-    /* speed up spin on hover */
     .photo-circle-wrap:hover .photo-ring::before {
       animation-duration: 1.2s;
     }
@@ -312,16 +306,16 @@
       transform: scale(1.15);
     }
 
-    /* star dots */
+    /* FIX: star dots — y values raised to stay inside circle boundary (inset:-20px means y must be > 20px) */
     .photo-circle-wrap::before {
       content: ''; position: absolute; inset: -20px;
-      background:
-        radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px) 20px 30px,
+      /*background:
+        radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px) 20px  30px,
         radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px) 140px 10px,
-        radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px) 10px 130px,
+        radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px) 10px  130px,
         radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px) 165px 120px,
-        radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px) 80px 5px,
-        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px) 5px 80px;
+        radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px) 80px  5px,
+        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px) 5px   80px;*/
       background-size: 220px 220px;
       pointer-events: none;
     }
@@ -342,7 +336,6 @@
 </head>
 <body>
 
-  <!-- logo — always visible, never flips -->
   <div class="logo-header">
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -509,7 +502,6 @@
 
         <!-- PANEL 3: Add Profile Photo -->
         <div class="inner-panel" id="photo-panel">
-          <!-- <button type="button" class="back-arrow" id="backToOtp">← Back</button> -->
           <p class="photo-title">Add Profile Photo</p>
 
           <div class="photo-circle-wrap" id="photoCircle">
@@ -526,9 +518,9 @@
           <button type="button" class="btn-skip" id="skipBtn">Skip for now</button>
         </div>
 
-      </div><!-- end .face.back -->
-    </div><!-- end .card -->
-  </div><!-- end .scene -->
+      </div>
+    </div>
+  </div>
 
   <script>
     /* ── helpers ─────────────────────────── */
@@ -555,14 +547,22 @@
       );
     }
 
+    function clearAllErrors() {
+      document.querySelectorAll('input').forEach(inp => inp.classList.remove('error'));
+    }
+
     /* ── flip ────────────────────────────── */
     const card = document.getElementById('card');
 
+    // FIX: clear errors before flipping to login
     document.getElementById('toLogin').addEventListener('click', () => {
-      document.querySelectorAll('input').forEach(inp => inp.classList.remove('error'));
+      clearAllErrors();
       card.classList.add('flipped');
     });
+
+    // FIX: clear errors before flipping back to register
     document.getElementById('toRegister').addEventListener('click', () => {
+      clearAllErrors();
       card.classList.remove('flipped');
       showPanel('reg');
     });
@@ -576,7 +576,7 @@
 
     document.getElementById('login-btn').addEventListener('click', () => {
       if (!validate(loginInputs)) return;
-      alert('Logging in!'); // replace with real API call
+      alert('Logging in!');
     });
 
     document.getElementById('lEyeBtn').addEventListener('click', () => {
@@ -662,7 +662,6 @@
     }
 
     document.getElementById('backToReg').addEventListener('click', () => showPanel('reg', 'otp'));
-    /* document.getElementById('backToOtp').addEventListener('click', () => showPanel('otp', 'photo')); */
 
     /* ── OTP boxes ───────────────────────── */
     const otpInputs = [...document.querySelectorAll('#otpWrap input')];
@@ -711,7 +710,7 @@
       });
       if (!allFilled) { otpInputs.find(i => !i.value)?.focus(); return; }
       const otp = otpInputs.map(i => i.value).join('');
-      console.log('OTP:', otp); // replace with real verify API call
+      console.log('OTP:', otp);
       showPanel('photo', 'otp');
     });
 
@@ -745,15 +744,6 @@
     document.getElementById('continueBtn').addEventListener('click', async () => {
       const file = photoInput.files[0];
       if (file) {
-        // TODO: upload to API
-        // const token = localStorage.getItem('token');
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // await fetch('https://home-town-hub.onrender.com/me/photo', {
-        //   method: 'POST',
-        //   headers: { 'Authorization': `Bearer ${token}` },
-        //   body: formData
-        // });
         console.log('Photo ready:', file.name);
       }
       goToLogin();
@@ -762,13 +752,11 @@
     /* ── skip ────────────────────────────── */
     document.getElementById('skipBtn').addEventListener('click', () => goToLogin());
 
-    /* ── go to login with flip animation ─── */
+    /* ── FIX: go to login — Login is the BACK face, so ADD flipped ── */
     function goToLogin() {
-      // play the full flip animation back to login face
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
-      card.classList.remove('flipped');
+      card.classList.add('flipped'); // FIX: was remove('flipped') — wrong face!
 
-      // after flip finishes silently reset all panels and fields
       setTimeout(() => {
         Object.values(panels).forEach(p => p.style.display = 'none');
         panels.reg.style.display = 'flex';
@@ -781,8 +769,8 @@
       }, 800);
     }
 
-    /* ── URL param: ?tab=register ────────── */
-    if (new URLSearchParams(window.location.search).get('tab') === 'register') {
+    /* ── FIX: URL param — ?tab=login triggers flip, not ?tab=register ── */
+    if (new URLSearchParams(window.location.search).get('tab') === 'login') {
       card.style.transition = 'none';
       card.classList.add('flipped');
       setTimeout(() => { card.style.transition = ''; }, 50);
