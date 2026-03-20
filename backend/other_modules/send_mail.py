@@ -12,6 +12,7 @@ def generate_otp():
 
 def send_otp(name,receiver_mail):
     generate_otp()
+    print(otp)# for faster testing
     message = Mail(
         from_email='mojisshuja@gmail.com',
         to_emails=receiver_mail,
