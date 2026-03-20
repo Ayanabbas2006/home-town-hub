@@ -496,7 +496,7 @@
             <button type="button" id="resendBtn">Resend</button>
           </p>
           <p class="switch" style="margin-top:8px">
-            <button type="button" id="backToReg">← Back</button>
+            <!-- <button type="button" id="backToReg">← Back</button> -->
           </p>
         </div>
 
@@ -598,8 +598,8 @@
 
     document.getElementById('reg-btn').addEventListener('click', () => {
       if (!validate(regInputs)) return;
-      showPanel('otp');
       send_email();
+      showPanel('otp');
     });
 
     document.getElementById('rEyeBtn').addEventListener('click', () => {
@@ -669,7 +669,7 @@
       }, 400);
     }
 
-    document.getElementById('backToReg').addEventListener('click', () => showPanel('reg', 'otp'));
+    /*document.getElementById('backToReg').addEventListener('click', () => showPanel('reg', 'otp'));*/
 
     /* ── OTP boxes ───────────────────────── */
     const otpInputs = [...document.querySelectorAll('#otpWrap input')];
@@ -711,6 +711,17 @@
     });
 
     /* ── verify ──────────────────────────── */
+    async function check(otp){
+      const res = await fetch("https://home-town-hub.onrender.com/register/verify_otp",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({otp: Number(otp) })
+      });
+      const rep = await res.json();
+      return rep;
+    }
     document.getElementById('verifyBtn').addEventListener('click', () => {
       let allFilled = true;
       otpInputs.forEach(inp => {
@@ -718,8 +729,17 @@
       });
       if (!allFilled) { otpInputs.find(i => !i.value)?.focus(); return; }
       const otp = otpInputs.map(i => i.value).join('');
-      console.log('OTP:', otp);
-      showPanel('photo', 'otp');
+      const test = check(otp).then(res=>{
+        const status = res.status;
+        console.log(status, typeof(status));
+        if (status=='1'){
+          showPanel('photo', 'otp');
+        }
+        else{
+          otpInputs.forEach(inp=>{ inp.value =""; inp.classList.add('error')});
+          otpInputs[0].focus();
+        }
+      });
     });
 
     /* ── resend ──────────────────────────── */
