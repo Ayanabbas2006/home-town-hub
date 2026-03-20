@@ -727,6 +727,7 @@
       const otp = otpInputs.map(i => i.value).join('');
       const test = check(otp).then(res=>{
         const status = res.status;
+        console.log(status, typeof(status));
         if (status=='1'){
           showPanel('photo', 'otp');
         }
