@@ -6,7 +6,7 @@ class UserCreate(BaseModel):
     full_name: str
     email: EmailStr
     hometown: str
-    hashed_pw: str
+    password: str
     photo_url: str
 
 class UserOut(BaseModel):
