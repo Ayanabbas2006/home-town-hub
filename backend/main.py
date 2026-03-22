@@ -12,9 +12,6 @@ from fastapi.middleware.cors import CORSMiddleware
 database.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Hometown Hub Api", version="0.0.1")
-routers = [router, upload_router, db_router]
-for route in routers:
-    app.include_router(route)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://hometownhub.vercel.app","http:localhost:5500"],
@@ -22,6 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+routers = [router, upload_router, db_router]
+for route in routers:
+    app.include_router(route)
 
 @app.get("/")
 def root():
