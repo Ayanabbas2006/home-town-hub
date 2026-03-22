@@ -589,7 +589,7 @@
       data.append("email",document.getElementById("r-email").value);
       data.append("password",document.getElementById("r-pwd").value);
         data.append("hometown",document.getElementById("r-town").value);
-      if (photo_url){
+      if (uploaded_photo){
         data.append("photo",uploaded_photo);
       }
       const res = await fetch("https://home-town-hub.onrender.com/add_user/",{
