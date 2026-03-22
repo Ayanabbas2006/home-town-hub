@@ -499,12 +499,7 @@
       .then(data => {
         console.log('verify response:', data);
 
-        // save JWT token so /me/photo upload can use it
-        if (data.access_token) {
-          localStorage.setItem('token', data.access_token);
-        }
-
-        if (data.status == '1' || data.status === 1 || data.access_token) {
+        if (data.status == '1' || data.status === 1) {
           showPanel('photo', 'otp');
         } else {
           // wrong OTP — clear boxes and show red
@@ -547,15 +542,12 @@
       btn.disabled = true;
 
       try {
-        const token = localStorage.getItem('token'); // JWT stored after register
-
-        // FormData — browser sets Content-Type automatically (do NOT set it manually)
         const formData = new FormData();
         formData.append('file', file); // 'file' matches FastAPI UploadFile param name
 
         const res = await fetch('https://home-town-hub.onrender.com/cloud_store/upload/', {
           method: 'POST',
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: {},
           body: formData
         });
 
