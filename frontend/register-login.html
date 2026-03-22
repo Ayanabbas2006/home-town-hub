@@ -810,8 +810,34 @@
     });
     document.getElementById('skipBtn').addEventListener('click', () => goToLogin());
 
+     // Add user in database
+    async function addUser(){
+      const data = new FormData();
+      data.append("full_name",document.getElementById("r-name").value);
+      data.append("email",document.getElementById("r-email").value);
+      data.append("password",document.getElementById("r-pwd").value);
+        data.append("hometown",document.getElementById("r-town").value);
+      if (uploaded_photo){
+        data.append("photo",uploaded_photo);
+      }
+      const res = await fetch("https://home-town-hub.onrender.com/add_user/",{
+        method: "POST",
+        body: data
+      });
+      const rep = await res.json();
+
+      if (res.ok){
+        console.log("User created", rep);
+        alert("User Registered Successfully!");
+      } 
+      else{
+        alert("Error",rep.detail);
+      }
+    }
+
     // Go to login with flip animation
     function goToLogin() {
+      addUser();
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
       card.classList.remove('flipped'); // register=front -> flip -> login=back
       setTimeout(() => {

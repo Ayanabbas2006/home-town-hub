@@ -301,7 +301,7 @@
 
         <!-- Panel 3: Profile Photo -->
         <div class="inner-panel" id="photo-panel">
-          <button type="button" class="back-arrow" id="backToOtp">← Back</button>
+          <!-- <button type="button" class="back-arrow" id="backToOtp">← Back</button> -->
           <p class="photo-title">Add Profile Photo</p>
           <div class="photo-circle-wrap" id="photoCircle">
             <div class="photo-ring"></div>
@@ -600,7 +600,8 @@
 
       if (res.ok){
         console.log("User created", rep);
-      }
+        alert("User Registered Successfully!");
+      } 
       else{
         alert("Error",rep.detail);
       }
