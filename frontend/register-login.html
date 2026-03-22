@@ -747,55 +747,83 @@
       send_email();
     });
 
-    /* ── photo upload ────────────────────── */
+    /* ── Photo upload ── */
     const photoInput   = document.getElementById('photoInput');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlus    = document.getElementById('photoPlus');
 
     document.getElementById('photoCircle').addEventListener('click', () => photoInput.click());
-
     photoInput.addEventListener('change', () => {
-      const file = photoInput.files[0];
-      if (!file) return;
+      const file = photoInput.files[0]; if (!file) return;
       const reader = new FileReader();
-      reader.onload = e => {
-        photoPreview.src = e.target.result;
-        photoPreview.style.display = 'block';
-        photoPlus.style.display    = 'none';
-      };
+      reader.onload = e => { photoPreview.src = e.target.result; photoPreview.style.display = 'block'; photoPlus.style.display = 'none'; };
       reader.readAsDataURL(file);
     });
 
-    /* ── continue ────────────────────────── */
     document.getElementById('continueBtn').addEventListener('click', async () => {
       const file = photoInput.files[0];
-      if (file) {
-        console.log('Photo ready:', file.name);
-      }
-      goToLogin();
-    });
 
-    /* ── skip ────────────────────────────── */
+      // no photo selected — go straight to login
+      if (!file) { goToLogin(); return; }
+
+      // show loading state on button
+      const btn = document.getElementById('continueBtn');
+      btn.textContent = 'Uploading...';
+      btn.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append('file', file); // 'file' matches FastAPI UploadFile param name
+
+        const res = await fetch('https://home-town-hub.onrender.com/cloud_store/upload', {
+          method: 'POST',
+          headers: {},
+          body: formData
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          console.error('Upload failed:', err.detail);
+          btn.textContent = 'Try Again';
+          btn.disabled = false;
+          return;
+        }
+
+        const user = await res.json();
+        console.log('Uploaded URL:', user.photo_url);
+
+        // show the Cloudinary URL in the circle before flipping
+        if (user.photo_url) {
+          photoPreview.src = user.photo_url;
+          photoPreview.style.display = 'block';
+          photoPlus.style.display    = 'none';
+        }
+
+        // small pause so user sees the uploaded photo, then flip to login
+        setTimeout(() => goToLogin(), 700);
+
+      } catch (err) {
+        console.error('Upload error:', err);
+        btn.textContent = 'Continue';
+        btn.disabled = false;
+      }
+    });
     document.getElementById('skipBtn').addEventListener('click', () => goToLogin());
 
-    /* ── FIX: go to login — Login is the BACK face, so ADD flipped ── */
+    // Go to login with flip animation
     function goToLogin() {
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
-      card.classList.add('flipped'); // FIX: was remove('flipped') — wrong face!
-
+      card.classList.remove('flipped'); // register=front -> flip -> login=back
       setTimeout(() => {
         Object.values(panels).forEach(p => p.style.display = 'none');
         panels.reg.style.display = 'flex';
         regInputs.forEach(inp => { inp.value = ''; inp.classList.remove('error'); });
         otpInputs.forEach(inp => { inp.value = ''; inp.classList.remove('filled','error'); });
-        photoInput.value           = '';
-        photoPreview.src           = '';
-        photoPreview.style.display = 'none';
-        photoPlus.style.display    = '';
+        photoInput.value = ''; photoPreview.src = ''; photoPreview.style.display = 'none'; photoPlus.style.display = '';
       }, 800);
     }
 
-    /* ── FIX: URL param — ?tab=login triggers flip, not ?tab=register ── */
+    // URL param: ?tab=login
     if (new URLSearchParams(window.location.search).get('tab') === 'login') {
       card.style.transition = 'none';
       card.classList.add('flipped');
