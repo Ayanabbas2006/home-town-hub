@@ -7,7 +7,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     hometown: str
     password: str
-    photo_url: str
+    photo_url: Optional[str] = None
 
 class UserOut(BaseModel):
     Id: int
