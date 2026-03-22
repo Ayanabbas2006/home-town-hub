@@ -367,13 +367,13 @@
     const card = document.getElementById('card');
 
     // toLogin: flip to show login (back face)
-    document.getElementById('toLogin').addEventListener('click', () => {
+    document.getElementById('toRegister').addEventListener('click', () => {
       clearAllErrors();
       card.classList.add('flipped');
     });
 
     // toRegister: flip back to register (front face)
-    document.getElementById('toRegister').addEventListener('click', () => {
+    document.getElementById('toLogin').addEventListener('click', () => {
       clearAllErrors();
       card.classList.remove('flipped');
       showPanel('reg');
