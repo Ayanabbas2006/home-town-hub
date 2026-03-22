@@ -14,7 +14,7 @@ cloudinary.config(
     api_secret = os.getenv("CLOUD_API_SECRET"),
     secure = True
 )
-@upload_router.post("upload/")
+@upload_router.post("/upload")
 def upload_photo(data: cloudPic)-> str:
     file_bytes = data.file_bytes
     user_id = data.user_id
