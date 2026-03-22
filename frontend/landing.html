@@ -161,7 +161,9 @@
   </div>
   <script>
     try{
-      await fetch("https://home-town-hub.onrender.com/");
+      async function warmup(){
+      await fetch("https://home-town-hub.onrender.com/");}
+      warmup();
     }catch(error){
       alert(error);
     }
