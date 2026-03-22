@@ -583,7 +583,7 @@
     // Go to login with flip animation
     function goToLogin() {
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
-      card.classList.add('flipped'); // register=front -> flip -> login=back
+      card.classList.remove('flipped'); // register=front -> flip -> login=back
       setTimeout(() => {
         Object.values(panels).forEach(p => p.style.display = 'none');
         panels.reg.style.display = 'flex';
