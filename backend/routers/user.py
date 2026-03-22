@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Form
 from models.user import User
+from typing import Optional
 from database.database import get_db
 import bcrypt
 from schemas.schemas import UserCreate, UserOut
@@ -12,7 +13,7 @@ def create_user(full_name: str = Form(...),
     email: str = Form(...),
     password: str = Form(...),
     hometown: str = Form(...),
-    photo: Optional[str] = Form(None),  # receiving url string not file
+    photo: Optional[str] = Form(None),
     db: Session = Depends(get_db)):
     existing = db.query(User).filter(User.email==email).first()
     if existing:
