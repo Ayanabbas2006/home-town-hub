@@ -545,7 +545,7 @@
         const formData = new FormData();
         formData.append('file', file); // 'file' matches FastAPI UploadFile param name
 
-        const res = await fetch('https://home-town-hub.onrender.com/cloud_store/upload/', {
+        const res = await fetch('https://home-town-hub.onrender.com/cloud_store/upload', {
           method: 'POST',
           headers: {},
           body: formData
