@@ -8,65 +8,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      min-height: 100vh;
-      background: #07071a;
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh; background: #07071a;
+      font-family: 'Outfit', sans-serif; color: #fff;
+      overflow: hidden; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
     }
-
-    /* ambient blobs */
     body::before {
-      content: ''; position: fixed;
-      width: 460px; height: 460px; border-radius: 50%;
+      content: ''; position: fixed; width: 460px; height: 460px; border-radius: 50%;
       background: radial-gradient(circle, #7b2ff7, transparent 70%);
-      filter: blur(110px); opacity: .16;
-      top: -100px; left: -100px; pointer-events: none;
+      filter: blur(110px); opacity: .16; top: -100px; left: -100px; pointer-events: none;
     }
     body::after {
-      content: ''; position: fixed;
-      width: 340px; height: 340px; border-radius: 50%;
+      content: ''; position: fixed; width: 340px; height: 340px; border-radius: 50%;
       background: radial-gradient(circle, #6c5ce7, transparent 70%);
-      filter: blur(110px); opacity: .16;
-      bottom: -80px; right: -80px; pointer-events: none;
+      filter: blur(110px); opacity: .16; bottom: -80px; right: -80px; pointer-events: none;
     }
-
-    /* ── LOGO ─────────────────────────────── */
     .logo-header {
       display: flex; flex-direction: column; align-items: center;
       gap: 6px; margin-bottom: 24px;
-      animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;
-      z-index: 1;
+      animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both; z-index: 1;
     }
     .logo-header svg { width: 68px; height: 68px; }
     .logo-name { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; }
-
-    /* ── FLIP SCENE ───────────────────────── */
     .scene {
-      perspective: 1200px;
-      width: min(440px, 92vw);
-      height: 500px;
+      perspective: 1200px; width: min(440px, 92vw); height: 500px;
       animation: fadeUp .55s cubic-bezier(.22,.68,0,1.2) .08s both;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .card {
       position: relative; width: 100%; height: 100%;
       transform-style: preserve-3d;
       transition: transform 0.75s cubic-bezier(.4,0,.2,1);
     }
     .card.flipped { transform: rotateY(180deg); }
-
-    /* ── FACES ────────────────────────────── */
     .face {
       position: absolute; inset: 0;
       backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -77,54 +55,42 @@
       align-items: center; justify-content: center;
       padding: 36px 36px 32px; overflow: hidden;
     }
-    .face.back { transform: rotateY(180deg); }
-
-    /* ── KILL browser native red ──────────── */
+    .face.front { transform: rotateY(0deg); }
+    .face.back  { transform: rotateY(180deg); }
     input                 { box-shadow: none; }
     input:invalid         { box-shadow: none !important; outline: none !important; }
     input:-moz-ui-invalid { box-shadow: none !important; }
-
-    /* ── PAGE LABEL ───────────────────────── */
     .page-label {
       font-size: 1.05rem; font-weight: 400; color: #9a9ac0;
       margin-bottom: 22px; align-self: flex-start;
     }
-
-    /* ── FIELD ────────────────────────────── */
     .field { position: relative; width: 100%; margin-bottom: 13px; }
-
     .field label {
       position: absolute; top: 12px; left: 50px;
-      font-size: 0.76rem; font-weight: 600;
-      color: #fff; pointer-events: none;
+      font-size: 0.76rem; font-weight: 600; color: #fff; pointer-events: none;
     }
     .field .fi {
       position: absolute; left: 15px; top: 50%;
-      transform: translateY(-50%);
-      color: #6c5ce7; display: flex; align-items: center;
+      transform: translateY(-50%); color: #6c5ce7; display: flex; align-items: center;
     }
     .field .fr {
       position: absolute; right: 15px; top: 50%;
-      transform: translateY(-50%);
-      color: #7a7aaa; cursor: pointer;
+      transform: translateY(-50%); color: #7a7aaa; cursor: pointer;
       display: flex; align-items: center; transition: color .2s;
     }
     .field .fr:hover { color: #a29bfe; }
-
     .field input {
       width: 100%; padding: 25px 46px 10px 50px;
       background: rgba(255,255,255,0.025);
       border: 1.5px solid rgba(90,70,220,0.45);
       border-radius: 13px; color: #8888b0;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.93rem; font-weight: 300;
-      outline: none;
+      font-size: 0.93rem; font-weight: 300; outline: none;
       transition: border-color .25s, box-shadow .25s, color .2s;
     }
     .field input:focus {
       border-color: rgba(140,100,255,0.9);
-      box-shadow: 0 0 0 3px rgba(108,92,231,0.18) !important;
-      color: #fff;
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.18) !important; color: #fff;
     }
     .field input::placeholder { color: #6a6a90; font-weight: 300; }
     .field input.error {
@@ -136,16 +102,11 @@
       color: rgba(255,100,100,0.9); margin-top: 5px; padding-left: 4px;
     }
     .field input.error ~ .err-msg { display: block; }
-
-    /* ── FORGOT ───────────────────────────── */
     .forgot {
-      width: 100%; text-align: right; font-size: 0.82rem;
-      color: #7a7aaa; text-decoration: none;
-      margin-bottom: 18px; display: block; transition: color .2s;
+      width: 100%; text-align: right; font-size: 0.82rem; color: #7a7aaa;
+      text-decoration: none; margin-bottom: 18px; display: block; transition: color .2s;
     }
     .forgot:hover { color: #a29bfe; }
-
-    /* ── PRIMARY BUTTON ───────────────────── */
     .btn-main {
       width: 100%; padding: 16px; border: none; border-radius: 13px;
       background: linear-gradient(90deg, #5b3ff8, #7b2ff7);
@@ -163,17 +124,13 @@
     }
     .btn-main:hover  { transform: translateY(-1px); box-shadow: 0 8px 34px rgba(108,92,231,0.65); }
     .btn-main:active { transform: translateY(0); }
-
-    /* ── SWITCH LINE ──────────────────────── */
     .switch { text-align: center; margin-top: 16px; font-size: 0.88rem; color: #7a7aaa; }
     .switch button {
-      background: none; border: none; cursor: pointer;
-      color: #a29bfe; font-family: 'Outfit', sans-serif;
-      font-size: 0.88rem; font-weight: 600; margin-left: 4px; transition: color .2s;
+      background: none; border: none; cursor: pointer; color: #a29bfe;
+      font-family: 'Outfit', sans-serif; font-size: 0.88rem;
+      font-weight: 600; margin-left: 4px; transition: color .2s;
     }
     .switch button:hover { color: #fff; }
-
-    /* ── SLIDE ANIMATIONS ─────────────────── */
     @keyframes slideOutLeft  { from{transform:translateX(0);opacity:1}     to{transform:translateX(-220px);opacity:0} }
     @keyframes slideInRight  { from{transform:translateX(220px);opacity:0}  to{transform:translateX(0);opacity:1} }
     @keyframes slideOutRight { from{transform:translateX(0);opacity:1}     to{transform:translateX(220px);opacity:0} }
@@ -182,163 +139,92 @@
     .slide-in-right  { animation: slideInRight  0.4s ease-out forwards; }
     .slide-out-right { animation: slideOutRight 0.4s ease-out forwards; }
     .slide-in-left   { animation: slideInLeft   0.4s ease-out forwards; }
-
-    /* ── PANELS ───────────────────────────── */
     .inner-panel { width: 100%; display: flex; flex-direction: column; align-items: center; }
     #verify-panel { display: none; }
     #photo-panel  { display: none; }
-
-    /* ── OTP ──────────────────────────────── */
-    .otp-wrap {
-      display: flex; gap: 10px; justify-content: center;
-      width: 100%; margin-bottom: 8px;
-    }
+    .otp-wrap { display: flex; gap: 10px; justify-content: center; width: 100%; margin-bottom: 8px; }
     .otp-wrap input {
       width: 50px; height: 58px; text-align: center;
       font-size: 1.4rem; font-weight: 700;
       font-family: 'Outfit', sans-serif; color: #fff;
-      background: rgba(108,92,231,0.08);
-      border: 1.5px solid rgba(108,92,231,0.4);
-      border-radius: 12px; outline: none;
-      caret-color: transparent; padding: 0; box-shadow: none;
-      transition: border-color .2s, box-shadow .2s;
+      background: rgba(108,92,231,0.08); border: 1.5px solid rgba(108,92,231,0.4);
+      border-radius: 12px; outline: none; caret-color: transparent;
+      padding: 0; box-shadow: none; transition: border-color .2s, box-shadow .2s;
     }
-    .otp-wrap input:focus {
-      border-color: rgba(140,100,255,0.9);
-      box-shadow: 0 0 0 3px rgba(108,92,231,0.2) !important;
-    }
-    .otp-wrap input.filled {
-      border-color: rgba(140,100,255,0.7);
-      background: rgba(108,92,231,0.18);
-    }
-    .otp-wrap input.error {
-      border-color: rgba(255,80,80,0.8) !important;
-      box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important;
-    }
-    .otp-hint {
-      font-size: 0.83rem; color: #7a7aaa;
-      text-align: center; margin-bottom: 24px;
-    }
-    .resend { font-size: 0.83rem; color: #7a7aaa; text-align: center; margin-top: 14px; }
+    .otp-wrap input:focus { border-color: rgba(140,100,255,0.9); box-shadow: 0 0 0 3px rgba(108,92,231,0.2) !important; }
+    .otp-wrap input.filled { border-color: rgba(140,100,255,0.7); background: rgba(108,92,231,0.18); }
+    .otp-wrap input.error  { border-color: rgba(255,80,80,0.8) !important; box-shadow: 0 0 0 3px rgba(255,80,80,0.15) !important; }
+    .otp-hint  { font-size: 0.83rem; color: #7a7aaa; text-align: center; margin-bottom: 24px; }
+    .resend    { font-size: 0.83rem; color: #7a7aaa; text-align: center; margin-top: 14px; }
     .resend button {
-      background: none; border: none; cursor: pointer;
-      color: #a29bfe; font-family: 'Outfit', sans-serif;
-      font-size: 0.83rem; font-weight: 600; margin-left: 4px; transition: color .2s;
+      background: none; border: none; cursor: pointer; color: #a29bfe;
+      font-family: 'Outfit', sans-serif; font-size: 0.83rem; font-weight: 600;
+      margin-left: 4px; transition: color .2s;
     }
     .resend button:hover { color: #fff; }
-
-    /* ── PROFILE PHOTO PANEL ──────────────── */
-    .photo-title {
-      font-size: 1.4rem; font-weight: 700; text-align: center;
-      margin-bottom: 28px; letter-spacing: -.3px;
-    }
-
+    .photo-title { font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 28px; letter-spacing: -.3px; }
     .back-arrow {
-      align-self: flex-start; background: none; border: none;
-      color: #7a7aaa; cursor: pointer;
-      font-family: 'Outfit', sans-serif; font-size: 0.85rem;
+      align-self: flex-start; background: none; border: none; color: #7a7aaa;
+      cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.85rem;
       margin-bottom: 12px; padding: 0; transition: color .2s;
       display: flex; align-items: center; gap: 6px;
     }
     .back-arrow:hover { color: #fff; }
-
-    /* glowing circle */
     .photo-circle-wrap {
-      position: relative;
-      width: 180px; height: 180px;
+      position: relative; width: 180px; height: 180px;
       margin-bottom: 24px; cursor: pointer;
-      /* smooth glow transition on hover */
+      filter: drop-shadow(0 0 12px rgba(108,92,231,0.4));
       transition: filter .35s ease;
     }
-
-    /* default glow */
-    .photo-circle-wrap {
-      filter: drop-shadow(0 0 12px rgba(108,92,231,0.4));
-    }
-
-    /* enhanced glow on hover */
     .photo-circle-wrap:hover {
       filter:
-        drop-shadow(0 0 18px rgba(168, 85, 247, 0.85))
-        drop-shadow(0 0 40px rgba(96, 165, 250, 0.5))
+        drop-shadow(0 0 18px rgba(168,85,247,0.85))
+        drop-shadow(0 0 40px rgba(96,165,250,0.5))
         drop-shadow(0 0 70px rgba(108,92,231,0.4));
     }
-
-    /* spinning gradient ring */
-    .photo-ring {
-      position: absolute; inset: 0; border-radius: 50%;
-    }
+    .photo-ring { position: absolute; inset: 0; border-radius: 50%; }
     .photo-ring::before {
-      content: '';
-      position: absolute; inset: -3px;
-      border-radius: 50%;
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
       background: conic-gradient(from 180deg, #a855f7, #60a5fa, #a855f7);
       -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px));
       mask:         radial-gradient(farthest-side, transparent calc(100% - 4px), black calc(100% - 4px));
       animation: spinRing 3s linear infinite;
     }
-    @keyframes spinRing {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    /* speed up spin on hover */
-    .photo-circle-wrap:hover .photo-ring::before {
-      animation-duration: 1.2s;
-    }
-
-    /* inner dark circle */
+    @keyframes spinRing { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .photo-circle-wrap:hover .photo-ring::before { animation-duration: 1.2s; }
     .photo-inner {
       position: absolute; inset: 8px; border-radius: 50%;
       background: radial-gradient(circle at 40% 35%, #1a1060, #07071a);
       display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
-    .photo-inner img {
-      width: 100%; height: 100%; object-fit: cover;
-      border-radius: 50%; display: none;
-    }
+    .photo-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none; }
     .photo-plus {
-      font-size: 3rem; font-weight: 200;
-      color: rgba(255,255,255,0.7); line-height: 1;
-      user-select: none;
-      transition: color .25s, transform .25s;
+      font-size: 3rem; font-weight: 200; color: rgba(255,255,255,0.7);
+      line-height: 1; user-select: none; transition: color .25s, transform .25s;
     }
-    .photo-circle-wrap:hover .photo-plus {
-      color: rgba(255,255,255,1);
-      transform: scale(1.15);
-    }
-
-    /* star dots */
+    .photo-circle-wrap:hover .photo-plus { color: #fff; transform: scale(1.15); }
     .photo-circle-wrap::before {
       content: ''; position: absolute; inset: -20px;
-      /*background:
+      background:
         radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px) 20px 30px,
         radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px) 140px 10px,
         radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px) 10px 130px,
         radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px) 165px 120px,
         radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px) 80px 5px,
-        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px) 5px 80px;*/
-      background-size: 220px 220px;
-      pointer-events: none;
+        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px) 5px 80px;
+      background-size: 220px 220px; pointer-events: none;
     }
-
     #photoInput { display: none; }
-
-    .photo-hint {
-      font-size: 0.85rem; color: #7a7aaa;
-      text-align: center; margin-bottom: 28px;
-    }
+    .photo-hint { font-size: 0.85rem; color: #7a7aaa; text-align: center; margin-bottom: 28px; }
     .btn-skip {
-      background: none; border: none; cursor: pointer;
-      color: #7a7aaa; font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem; margin-top: 12px; transition: color .2s;
+      background: none; border: none; cursor: pointer; color: #7a7aaa;
+      font-family: 'Outfit', sans-serif; font-size: 0.85rem; margin-top: 12px; transition: color .2s;
     }
     .btn-skip:hover { color: #a29bfe; }
   </style>
 </head>
 <body>
 
-  <!-- logo — always visible, never flips -->
   <div class="logo-header">
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -358,132 +244,48 @@
   <div class="scene">
     <div class="card" id="card">
 
-      <!-- ░░ FRONT — LOGIN ░░ -->
+      <!-- FRONT: Register + OTP + Photo (visible by default) -->
       <div class="face front">
-        <p class="page-label">Login</p>
 
-        <div class="field">
-          <span class="fi">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-            </svg>
-          </span>
-          <label for="l-email">Email</label>
-          <input id="l-email" type="email" placeholder="Enter your email"
-                 autocomplete="email" novalidate/>
-          <span class="err-msg">Please enter a valid email</span>
-        </div>
-
-        <div class="field">
-          <span class="fi">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-          </span>
-          <label for="l-pwd">Password</label>
-          <input id="l-pwd" type="password" placeholder="Enter your password"
-                 autocomplete="current-password" novalidate/>
-          <span class="fr" id="lEyeBtn">
-            <svg id="lEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-              <line x1="1" y1="1" x2="23" y2="23"/>
-            </svg>
-            <svg id="lEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </span>
-          <span class="err-msg">Password cannot be empty</span>
-        </div>
-
-        <a href="#" class="forgot">Forgot password?</a>
-        <button type="button" class="btn-main" id="login-btn">Log In</button>
-        <p class="switch" style="margin-top:16px">
-          Don't have an account?
-          <button type="button" id="toRegister">Register</button>
-        </p>
-      </div>
-
-      <!-- ░░ BACK — REGISTER + OTP + PHOTO ░░ -->
-      <div class="face back">
-
-        <!-- PANEL 1: Register -->
+        <!-- Panel 1: Register -->
         <div class="inner-panel" id="reg-panel">
           <p class="page-label">Register</p>
-
           <div class="field">
-            <span class="fi">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-              </svg>
-            </span>
+            <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
             <label for="r-name">Full Name</label>
-            <input id="r-name" type="text" placeholder="Full Name"
-                   autocomplete="off" novalidate/>
+            <input id="r-name" type="text" placeholder="Full Name" autocomplete="off" novalidate/>
             <span class="err-msg">Name cannot be empty</span>
           </div>
-
           <div class="field">
-            <span class="fi">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-              </svg>
-            </span>
+            <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></span>
             <label for="r-email">Email</label>
-            <input id="r-email" type="email" placeholder="Email"
-                   autocomplete="off" novalidate/>
+            <input id="r-email" type="email" placeholder="Email" autocomplete="off" novalidate/>
             <span class="err-msg">Please enter a valid email</span>
           </div>
-
           <div class="field">
-            <span class="fi">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </span>
+            <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
             <label for="r-town">Hometown</label>
-            <input id="r-town" type="text" placeholder="Hometown"
-                   autocomplete="off" novalidate/>
+            <input id="r-town" type="text" placeholder="Hometown" autocomplete="off" novalidate/>
             <span class="err-msg">Hometown cannot be empty</span>
           </div>
-
           <div class="field">
-            <span class="fi">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-            </span>
+            <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
             <label for="r-pwd">Password</label>
-            <input id="r-pwd" type="password" placeholder="Password"
-                   autocomplete="new-password" novalidate/>
+            <input id="r-pwd" type="password" placeholder="Password" autocomplete="new-password" novalidate/>
             <span class="fr" id="rEyeBtn">
-              <svg id="rEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-                <line x1="1" y1="1" x2="23" y2="23"/>
-              </svg>
-              <svg id="rEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
+              <svg id="rEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              <svg id="rEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </span>
             <span class="err-msg">Password cannot be empty</span>
           </div>
-
           <button type="button" class="btn-main" id="reg-btn" style="margin-top:4px">Register</button>
-          <p class="switch" style="margin-top:16px">
-            Already have an account?
-            <button type="button" id="toLogin">Log In</button>
-          </p>
+          <p class="switch" style="margin-top:16px">Already have an account? <button type="button" id="toLogin">Log In</button></p>
         </div>
 
-        <!-- PANEL 2: OTP -->
+        <!-- Panel 2: OTP -->
         <div class="inner-panel" id="verify-panel">
           <p class="page-label">Verify Email</p>
           <p class="otp-hint">Enter the 6‑digit code sent to your email</p>
-
           <div class="otp-wrap" id="otpWrap">
             <input type="text" maxlength="1" inputmode="numeric" novalidate/>
             <input type="text" maxlength="1" inputmode="numeric" novalidate/>
@@ -492,22 +294,15 @@
             <input type="text" maxlength="1" inputmode="numeric" novalidate/>
             <input type="text" maxlength="1" inputmode="numeric" novalidate/>
           </div>
-
           <button type="button" class="btn-main" id="verifyBtn" style="margin-top:16px">Verify</button>
-          <p class="resend">
-            Didn't receive a code?
-            <button type="button" id="resendBtn">Resend</button>
-          </p>
-          <p class="switch" style="margin-top:8px">
-            <button type="button" id="backToReg">← Back</button>
-          </p>
+          <p class="resend">Didn't receive a code? <button type="button" id="resendBtn">Resend</button></p>
+          <p class="switch" style="margin-top:8px"><button type="button" id="backToReg">← Back</button></p>
         </div>
 
-        <!-- PANEL 3: Add Profile Photo -->
+        <!-- Panel 3: Profile Photo -->
         <div class="inner-panel" id="photo-panel">
-          <!-- <button type="button" class="back-arrow" id="backToOtp">← Back</button> -->
+          <button type="button" class="back-arrow" id="backToOtp">← Back</button>
           <p class="photo-title">Add Profile Photo</p>
-
           <div class="photo-circle-wrap" id="photoCircle">
             <div class="photo-ring"></div>
             <div class="photo-inner">
@@ -515,118 +310,118 @@
               <span class="photo-plus" id="photoPlus">+</span>
             </div>
           </div>
-
           <input type="file" id="photoInput" accept="image/*"/>
           <p class="photo-hint">Tap above to upload your photo</p>
           <button type="button" class="btn-main" id="continueBtn">Continue</button>
           <button type="button" class="btn-skip" id="skipBtn">Skip for now</button>
         </div>
 
-      </div><!-- end .face.back -->
-    </div><!-- end .card -->
-  </div><!-- end .scene -->
+      </div>
+
+      <!-- BACK: Login (shown after flip) -->
+      <div class="face back">
+        <p class="page-label">Login</p>
+        <div class="field">
+          <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></span>
+          <label for="l-email">Email</label>
+          <input id="l-email" type="email" placeholder="Enter your email" autocomplete="email" novalidate/>
+          <span class="err-msg">Please enter a valid email</span>
+        </div>
+        <div class="field">
+          <span class="fi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <label for="l-pwd">Password</label>
+          <input id="l-pwd" type="password" placeholder="Enter your password" autocomplete="current-password" novalidate/>
+          <span class="fr" id="lEyeBtn">
+            <svg id="lEyeOff" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            <svg id="lEyeOn" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+          <span class="err-msg">Password cannot be empty</span>
+        </div>
+        <a href="#" class="forgot">Forgot password?</a>
+        <button type="button" class="btn-main" id="login-btn">Log In</button>
+        <p class="switch" style="margin-top:16px">Don't have an account? <button type="button" id="toRegister">Register</button></p>
+      </div>
+
+    </div>
+  </div>
 
   <script>
-    /* ── helpers ─────────────────────────── */
     function validate(inputs) {
       let firstBad = null;
       inputs.forEach(inp => {
         const empty    = !inp.value.trim();
-        const badEmail = inp.type === 'email' && inp.value.trim()
-                         && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
-        if (empty || badEmail) {
-          inp.classList.add('error');
-          if (!firstBad) firstBad = inp;
-        } else {
-          inp.classList.remove('error');
-        }
+        const badEmail = inp.type === 'email' && inp.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
+        if (empty || badEmail) { inp.classList.add('error'); if (!firstBad) firstBad = inp; }
+        else inp.classList.remove('error');
       });
       if (firstBad) { firstBad.focus(); return false; }
       return true;
     }
-
     function bindClear(inputs) {
-      inputs.forEach(inp =>
-        inp.addEventListener('input', () => inp.classList.remove('error'))
-      );
+      inputs.forEach(inp => inp.addEventListener('input', () => inp.classList.remove('error')));
+    }
+    function clearAllErrors() {
+      document.querySelectorAll('input').forEach(inp => inp.classList.remove('error'));
     }
 
-    /* ── flip ────────────────────────────── */
     const card = document.getElementById('card');
 
-    document.getElementById('toRegister').addEventListener('click', () => {
+    // toLogin: flip to show login (back face)
+    document.getElementById('toLogin').addEventListener('click', () => {
+      clearAllErrors();
       card.classList.add('flipped');
     });
-    document.getElementById('toLogin').addEventListener('click', () => {
+
+    // toRegister: flip back to register (front face)
+    document.getElementById('toRegister').addEventListener('click', () => {
+      clearAllErrors();
       card.classList.remove('flipped');
       showPanel('reg');
     });
 
-    /* ── login ───────────────────────────── */
-    const loginInputs = [
-      document.getElementById('l-email'),
-      document.getElementById('l-pwd')
-    ];
+    // Login
+    const loginInputs = [document.getElementById('l-email'), document.getElementById('l-pwd')];
     bindClear(loginInputs);
-
     document.getElementById('login-btn').addEventListener('click', () => {
       if (!validate(loginInputs)) return;
-      alert('Logging in!'); // replace with real API call
+      alert('Logging in!');
     });
-
     document.getElementById('lEyeBtn').addEventListener('click', () => {
-      const p = document.getElementById('l-pwd');
-      const show = p.type === 'password';
+      const p = document.getElementById('l-pwd'), show = p.type === 'password';
       p.type = show ? 'text' : 'password';
       document.getElementById('lEyeOff').style.display = show ? 'none' : '';
       document.getElementById('lEyeOn').style.display  = show ? ''     : 'none';
     });
 
-    /* ── register ────────────────────────── */
+    // Register
     const regInputs = [
-      document.getElementById('r-name'),
-      document.getElementById('r-email'),
-      document.getElementById('r-town'),
-      document.getElementById('r-pwd')
+      document.getElementById('r-name'), document.getElementById('r-email'),
+      document.getElementById('r-town'), document.getElementById('r-pwd')
     ];
     bindClear(regInputs);
-
     document.getElementById('reg-btn').addEventListener('click', () => {
       if (!validate(regInputs)) return;
-      send_email();
       showPanel('otp');
+      send_email();
     });
-
     document.getElementById('rEyeBtn').addEventListener('click', () => {
-      const p = document.getElementById('r-pwd');
-      const show = p.type === 'password';
+      const p = document.getElementById('r-pwd'), show = p.type === 'password';
       p.type = show ? 'text' : 'password';
       document.getElementById('rEyeOff').style.display = show ? 'none' : '';
       document.getElementById('rEyeOn').style.display  = show ? ''     : 'none';
     });
 
-    /* ── send OTP API ────────────────────── */
     async function send_email() {
       const name  = document.getElementById('r-name').value;
       const email = document.getElementById('r-email').value;
       try {
-        const res  = await fetch("https://home-town-hub.onrender.com/register/otp",{
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email
-          })
-      });
-      } catch (err) {
-        console.error('OTP send failed:', err);
-      }
+        const res  = await fetch(`https://home-town-hub.onrender.com/${encodeURIComponent(name)}/${encodeURIComponent(email)}`);
+        const data = await res.json();
+        console.log('OTP sent:', data);
+      } catch (err) { console.error('OTP send failed:', err); }
     }
 
-    /* ── panel switcher ──────────────────── */
+    // Panel switcher
     const panels = {
       reg:   document.getElementById('reg-panel'),
       otp:   document.getElementById('verify-panel'),
@@ -634,178 +429,170 @@
     };
 
     function showPanel(to, from) {
-      const current = from
-        || Object.keys(panels).find(k => panels[k].style.display === 'flex')
-        || 'reg';
-
-      const isForward = (to === 'otp'   && current === 'reg')
-                     || (to === 'photo' && current === 'otp');
-
+      const current = from || Object.keys(panels).find(k => panels[k].style.display === 'flex') || 'reg';
+      const isForward = (to === 'otp' && current === 'reg') || (to === 'photo' && current === 'otp');
       const outAnim = isForward ? 'slide-out-left'  : 'slide-out-right';
       const inAnim  = isForward ? 'slide-in-right'  : 'slide-in-left';
-
-      const fromEl = panels[current];
-      const toEl   = panels[to];
-
+      const fromEl = panels[current], toEl = panels[to];
       if (!fromEl || fromEl.style.display !== 'flex') {
         Object.values(panels).forEach(p => p.style.display = 'none');
-        toEl.style.display = 'flex';
-        return;
+        toEl.style.display = 'flex'; return;
       }
-
       fromEl.classList.add(outAnim);
       setTimeout(() => {
-        fromEl.style.display = 'none';
-        fromEl.classList.remove(outAnim);
-        toEl.style.display = 'flex';
-        toEl.classList.add(inAnim);
+        fromEl.style.display = 'none'; fromEl.classList.remove(outAnim);
+        toEl.style.display = 'flex'; toEl.classList.add(inAnim);
         if (to === 'otp') document.querySelector('#otpWrap input').focus();
         setTimeout(() => toEl.classList.remove(inAnim), 400);
       }, 400);
     }
 
     document.getElementById('backToReg').addEventListener('click', () => showPanel('reg', 'otp'));
-    /*document.getElementById('backToOtp').addEventListener('click', () => showPanel('otp', 'photo'));*/
+    document.getElementById('backToOtp').addEventListener('click', () => showPanel('otp', 'photo'));
 
-    /* ── OTP boxes ───────────────────────── */
+    // OTP boxes
     const otpInputs = [...document.querySelectorAll('#otpWrap input')];
     otpInputs.forEach((inp, i) => {
       inp.addEventListener('keydown', e => {
-        if (!/^[0-9]$/.test(e.key) &&
-            !['Backspace','Delete','Tab','ArrowLeft','ArrowRight'].includes(e.key)) {
-          e.preventDefault();
-        }
-        if (e.key === 'Backspace') {
-          inp.value = '';
-          inp.classList.remove('filled','error');
-          if (i > 0) otpInputs[i - 1].focus();
-        }
+        if (!/^[0-9]$/.test(e.key) && !['Backspace','Delete','Tab','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+        if (e.key === 'Backspace') { inp.value = ''; inp.classList.remove('filled','error'); if (i > 0) otpInputs[i-1].focus(); }
       });
       inp.addEventListener('input', () => {
-        inp.value = inp.value.replace(/[^0-9]/g, '');
-        inp.classList.remove('error');
-        if (inp.value) {
-          inp.classList.add('filled');
-          if (i < otpInputs.length - 1) otpInputs[i + 1].focus();
-        } else {
-          inp.classList.remove('filled');
-        }
+        inp.value = inp.value.replace(/[^0-9]/g, ''); inp.classList.remove('error');
+        if (inp.value) { inp.classList.add('filled'); if (i < otpInputs.length-1) otpInputs[i+1].focus(); }
+        else inp.classList.remove('filled');
       });
       inp.addEventListener('paste', e => {
         e.preventDefault();
         const digits = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
         digits.split('').forEach((ch, j) => {
-          if (otpInputs[i + j]) {
-            otpInputs[i + j].value = ch;
-            otpInputs[i + j].classList.add('filled');
-            otpInputs[i + j].classList.remove('error');
-          }
+          if (otpInputs[i+j]) { otpInputs[i+j].value = ch; otpInputs[i+j].classList.add('filled'); otpInputs[i+j].classList.remove('error'); }
         });
-        otpInputs[Math.min(i + digits.length, otpInputs.length - 1)].focus();
+        otpInputs[Math.min(i+digits.length, otpInputs.length-1)].focus();
       });
       inp.addEventListener('click', () => inp.select());
     });
 
-    /* ── verify ──────────────────────────── */
-    async function check(otp){
-      const res = await fetch("https://home-town-hub.onrender.com/register/verify_otp",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({otp: Number(otp) })
-      });
-      const rep = await res.json();
-      return rep;
-    }
     document.getElementById('verifyBtn').addEventListener('click', () => {
       let allFilled = true;
-      otpInputs.forEach(inp => {
-        if (!inp.value) { inp.classList.add('error'); allFilled = false; }
-      });
+      otpInputs.forEach(inp => { if (!inp.value) { inp.classList.add('error'); allFilled = false; } });
       if (!allFilled) { otpInputs.find(i => !i.value)?.focus(); return; }
       const otp = otpInputs.map(i => i.value).join('');
-      const test = check(otp).then(res=>{
-        const status = res.status;
-        console.log(status, typeof(status));
-        if (status=='1'){
-          showPanel('photo', 'otp');
+
+      // call verify API
+      fetch('https://home-town-hub.onrender.com/register/verify_otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ otp: Number(otp) })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('verify response:', data);
+
+        // save JWT token so /me/photo upload can use it
+        if (data.access_token) {
+          localStorage.setItem('token', data.access_token);
         }
-        else{
-          otpInputs.forEach(inp=>{ inp.value =""; inp.classList.add('error')});
+
+        if (data.status == '1' || data.status === 1 || data.access_token) {
+          showPanel('photo', 'otp');
+        } else {
+          // wrong OTP — clear boxes and show red
+          otpInputs.forEach(inp => { inp.value = ''; inp.classList.add('error'); });
           otpInputs[0].focus();
         }
+      })
+      .catch(err => {
+        console.error('Verify error:', err);
       });
     });
 
-    /* ── resend ──────────────────────────── */
     document.getElementById('resendBtn').addEventListener('click', () => {
       otpInputs.forEach(inp => { inp.value = ''; inp.classList.remove('filled','error'); });
-      otpInputs[0].focus();
-      send_email();
+      otpInputs[0].focus(); send_email();
     });
 
-    /* ── photo upload ────────────────────── */
+    // Photo upload
     const photoInput   = document.getElementById('photoInput');
     const photoPreview = document.getElementById('photoPreview');
     const photoPlus    = document.getElementById('photoPlus');
 
     document.getElementById('photoCircle').addEventListener('click', () => photoInput.click());
-
     photoInput.addEventListener('change', () => {
-      const file = photoInput.files[0];
-      if (!file) return;
+      const file = photoInput.files[0]; if (!file) return;
       const reader = new FileReader();
-      reader.onload = e => {
-        photoPreview.src = e.target.result;
-        photoPreview.style.display = 'block';
-        photoPlus.style.display    = 'none';
-      };
+      reader.onload = e => { photoPreview.src = e.target.result; photoPreview.style.display = 'block'; photoPlus.style.display = 'none'; };
       reader.readAsDataURL(file);
     });
 
-    /* ── continue ────────────────────────── */
     document.getElementById('continueBtn').addEventListener('click', async () => {
       const file = photoInput.files[0];
-      if (file) {
-        // TODO: upload to API
-        // const token = localStorage.getItem('token');
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // await fetch('https://home-town-hub.onrender.com/me/photo', {
-        //   method: 'POST',
-        //   headers: { 'Authorization': `Bearer ${token}` },
-        //   body: formData
-        // });
-        console.log('Photo ready:', file.name);
-      }
-      goToLogin();
-    });
 
-    /* ── skip ────────────────────────────── */
+      // no photo selected — go straight to login
+      if (!file) { goToLogin(); return; }
+
+      // show loading state on button
+      const btn = document.getElementById('continueBtn');
+      btn.textContent = 'Uploading...';
+      btn.disabled = true;
+
+      try {
+        const token = localStorage.getItem('token'); // JWT stored after register
+
+        // FormData — browser sets Content-Type automatically (do NOT set it manually)
+        const formData = new FormData();
+        formData.append('file', file); // 'file' matches FastAPI UploadFile param name
+
+        const res = await fetch('https://home-town-hub.onrender.com/cloud_store/upload/', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: formData
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          console.error('Upload failed:', err.detail);
+          btn.textContent = 'Try Again';
+          btn.disabled = false;
+          return;
+        }
+
+        const user = await res.json();
+        console.log('Uploaded URL:', user.photo_url);
+
+        // show the Cloudinary URL in the circle before flipping
+        if (user.photo_url) {
+          photoPreview.src = user.photo_url;
+          photoPreview.style.display = 'block';
+          photoPlus.style.display    = 'none';
+        }
+
+        // small pause so user sees the uploaded photo, then flip to login
+        setTimeout(() => goToLogin(), 700);
+
+      } catch (err) {
+        console.error('Upload error:', err);
+        btn.textContent = 'Continue';
+        btn.disabled = false;
+      }
+    });
     document.getElementById('skipBtn').addEventListener('click', () => goToLogin());
 
-    /* ── go to login with flip animation ─── */
+    // Go to login with flip animation
     function goToLogin() {
-      // play the full flip animation back to login face
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
-      card.classList.remove('flipped');
-
-      // after flip finishes silently reset all panels and fields
+      card.classList.add('flipped'); // register=front -> flip -> login=back
       setTimeout(() => {
         Object.values(panels).forEach(p => p.style.display = 'none');
         panels.reg.style.display = 'flex';
         regInputs.forEach(inp => { inp.value = ''; inp.classList.remove('error'); });
         otpInputs.forEach(inp => { inp.value = ''; inp.classList.remove('filled','error'); });
-        photoInput.value           = '';
-        photoPreview.src           = '';
-        photoPreview.style.display = 'none';
-        photoPlus.style.display    = '';
+        photoInput.value = ''; photoPreview.src = ''; photoPreview.style.display = 'none'; photoPlus.style.display = '';
       }, 800);
     }
 
-    /* ── URL param: ?tab=register ────────── */
-    if (new URLSearchParams(window.location.search).get('tab') === 'register') {
+    // URL param: ?tab=login
+    if (new URLSearchParams(window.location.search).get('tab') === 'login') {
       card.style.transition = 'none';
       card.classList.add('flipped');
       setTimeout(() => { card.style.transition = ''; }, 50);
