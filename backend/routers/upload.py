@@ -14,7 +14,7 @@ cloudinary.config(
     secure = True
 )
 @upload_router.post("/upload")
-async def upload_photo(file:UploadFile = File(), user_id: int=0)-> str:
+async def upload_photo(file:UploadFile = File(), user_id: int=0)-> dict:
     allowed = {"image/jpeg", "image/png", "image/webp", "image/gif"}
     if file.content_type not in allowed:
         raise HTTPException(status_code=400, detail="File type not allowed.")
