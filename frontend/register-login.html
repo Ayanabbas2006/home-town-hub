@@ -759,7 +759,7 @@
       reader.onload = e => { photoPreview.src = e.target.result; photoPreview.style.display = 'block'; photoPlus.style.display = 'none'; };
       reader.readAsDataURL(file);
     });
-
+    let uploaded_photo= null;
     document.getElementById('continueBtn').addEventListener('click', async () => {
       const file = photoInput.files[0];
 
@@ -791,6 +791,7 @@
 
         const user = await res.json();
         console.log('Uploaded URL:', user.photo_url);
+        uploaded_photo= user.photo_url;
 
         // show the Cloudinary URL in the circle before flipping
         if (user.photo_url) {
@@ -839,7 +840,7 @@
     function goToLogin() {
       addUser();
       card.style.transition = 'transform 0.75s cubic-bezier(.4,0,.2,1)';
-      card.classList.remove('flipped'); // register=front -> flip -> login=back
+      card.classList.add('flipped'); // register=front -> flip -> login=back
       setTimeout(() => {
         Object.values(panels).forEach(p => p.style.display = 'none');
         panels.reg.style.display = 'flex';
