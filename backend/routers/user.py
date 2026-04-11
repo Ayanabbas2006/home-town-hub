@@ -30,7 +30,6 @@ def create_user(full_name: str = Form(...),
     db.commit()
     db.refresh(new_user)
     return new_user
-
 @db_router.get("/{user_id}",response_model=UserOut)
 def get_user(user_id:int, db:Session= Depends(get_db)):
     user = db.query(User).filter(User.id== user_id).first()

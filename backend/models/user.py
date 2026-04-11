@@ -10,4 +10,6 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     photo_url = Column(String, nullable=True)
     hometown = Column(String,nullable=False)
+    user_name = Column(String,nullable=True)
+    account_type = Column(String,nullable=True)
     created_at = Column(DateTime(timezone=True),server_default=func.now())
