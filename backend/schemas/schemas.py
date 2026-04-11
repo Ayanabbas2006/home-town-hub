@@ -18,6 +18,10 @@ class UserOut(BaseModel):
     email: str
     created_at: datetime
     photo_url: Optional[str] = None
+    account_type: str
+    gender: str
+    user_name: str
+
     class config:
         from_attributes = True
 
