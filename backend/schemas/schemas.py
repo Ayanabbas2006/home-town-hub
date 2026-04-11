@@ -8,6 +8,9 @@ class UserCreate(BaseModel):
     hometown: str
     password: str
     photo_url: Optional[str] = None
+    account_type: str
+    gender: str
+    user_name: str
 
 class UserOut(BaseModel):
     Id: int
