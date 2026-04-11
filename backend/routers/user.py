@@ -24,7 +24,10 @@ def create_user(full_name: str = Form(...),
         email = email,
         hashed_password = hashed_pw,
         photo_url = photo,
-        hometown = hometown
+        hometown = hometown,
+        gender = "N",
+        user_name = None,
+        account_type = None
     )
     db.add(new_user)
     db.commit()
