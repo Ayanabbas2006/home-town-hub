@@ -26,8 +26,8 @@ def create_user(full_name: str = Form(...),
         photo_url = photo,
         hometown = hometown,
         gender = "N",
-        user_name = None,
-        account_type = None
+        user_name = "",
+        account_type = ""
     )
     db.add(new_user)
     db.commit()
