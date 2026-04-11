@@ -11,6 +11,6 @@ class User(Base):
     photo_url = Column(String, nullable=True)
     hometown = Column(String,nullable=False)
     user_name = Column(String,nullable=True)
-    gender = Column(chr(1),nullable=True)
+    gender = Column(String,nullable=True)
     account_type = Column(String,nullable=True)
     created_at = Column(DateTime(timezone=True),server_default=func.now())
